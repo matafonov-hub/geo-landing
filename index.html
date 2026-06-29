@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GEO — продвижение бренда в нейросетях | Creative Command</title>
+<meta name="description" content="Покупатели спрашивают совета у ИИ. GEO делает так, чтобы нейросети рекомендовали ваш бренд и не путали факты о нём. Аудит присутствия и ведение под ключ.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#4B27EB;
+  --ink-deep:#36277B;
+  --cream:#F5EFDD;
+  --card:#FBF7EC;
+  --dark:#1A1730;
+  --green:#5FA84B;
+  --purple:#7C5BD9;
+  --grass:#3FA535;
+  --vio:#7B3FE4;
+  --line:rgba(54,39,123,.13);
+  --r:24px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--ink-deep);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:1200px;margin:0 auto;padding:0 52px}
+h1,h2,h3,.display{font-family:'Montserrat',sans-serif;color:var(--ink);line-height:1.05;letter-spacing:-.02em}
+.eyebrow{font-family:'Montserrat',sans-serif;font-weight:700;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink);opacity:.75}
+
+/* ── NAV ───────────────────────────────── */
+nav{position:sticky;top:0;z-index:50;background:rgba(245,239,221,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:70px}
+.logo{font-family:'Montserrat',sans-serif;font-weight:800;font-size:20px;color:var(--ink);letter-spacing:-.02em;display:flex;flex-direction:column;line-height:.95}
+.logo-cmd{white-space:nowrap}
+.logo-dot{color:var(--ink-deep)}
+.nav-links{display:flex;gap:30px;align-items:center}
+.nav-links a{font-size:14px;color:var(--ink-deep);text-decoration:none;font-weight:500;opacity:.8;transition:opacity .2s}
+.nav-links a:hover{opacity:1}
+.btn{font-family:'Montserrat',sans-serif;font-weight:600;font-size:15px;background:var(--ink);color:#fff;border:none;padding:13px 26px;border-radius:100px;cursor:pointer;text-decoration:none;display:inline-block;transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(75,39,235,.32)}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+.btn-ghost:hover{background:var(--ink);color:#fff}
+@media(max-width:760px){.nav-links a:not(.btn){display:none}}
+
+/* ── HERO ──────────────────────────────── */
+.hero{padding:80px 0 64px;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.4fr 0.6fr;gap:48px;align-items:center}
+.hero h1{font-size:clamp(30px,4.2vw,58px);font-weight:800;margin-bottom:26px;line-height:1.07}
+.hero h1 .muted{color:var(--ink-deep);opacity:.4}
+.hero p.lead{font-size:clamp(16px,1.8vw,19px);color:var(--ink-deep);margin-bottom:30px;line-height:1.55}
+.hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.offer{display:inline-flex;align-items:center;gap:12px;margin-top:26px;background:var(--card);border:1px solid var(--line);border-radius:100px;padding:11px 20px 11px 13px}
+.offer .dot{width:34px;height:34px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.offer .dot svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2.5}
+.offer span{font-size:14px;color:var(--ink-deep);font-weight:500;line-height:1.35}
+
+/* Mascot — нависает, перекрывает только воздух справа от текста */
+.hero-col-text{position:relative;z-index:2}
+.hero-mascot-wrap{
+  position:relative;z-index:1;
+  display:flex;align-items:center;justify-content:flex-end;
+  overflow:visible;
+  margin-top:-36px;
+  transition:transform .4s ease;
+}
+.hero-mascot-wrap:hover{transform:scale(1.05)}
+/* 120% шире колонки — нависает, но с воздухом между ним и текстом */
+.mascot{width:min(540px,120%);display:block;animation:mascot-float 4s ease-in-out infinite,mascot-sway 6.3s ease-in-out infinite}
+@keyframes mascot-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-15px)}}
+@keyframes mascot-sway{0%,100%{transform:rotate(0deg)}33%{transform:rotate(2deg)}66%{transform:rotate(-2deg)}}
+
+@media(max-width:880px){
+  .hero-grid{grid-template-columns:1fr;gap:24px}
+  /* hero-col-text no override needed */
+  .hero-mascot-wrap{justify-content:center;overflow:hidden;order:2}
+  .mascot{width:min(380px,90%);margin:0 auto}
+}
+
+/* ── STATS BENTO ───────────────────────── */
+.stats{padding:28px 0 72px}
+.stats-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:18px}
+.stat{border-radius:var(--r);padding:34px 32px;position:relative;overflow:hidden;min-height:210px;display:flex;flex-direction:column;justify-content:space-between}
+.stat.dark{background:var(--dark);color:#fff}
+.stat.ink{background:var(--ink);color:#fff}
+.stat.light{background:var(--card);border:1px solid var(--line)}
+.stat .sv{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(56px,6.5vw,76px);line-height:.9;letter-spacing:-.03em}
+.stat.main .sv{font-size:clamp(64px,8vw,96px)}
+.stat.dark .sv,.stat.ink .sv{color:#fff}
+.stat.light .sv{color:var(--ink)}
+.stat .sl{font-size:15px;line-height:1.4;max-width:92%;margin-top:auto;padding-top:14px}
+.stat.dark .sl,.stat.ink .sl{color:rgba(255,255,255,.82)}
+.stat.light .sl{color:var(--ink-deep);opacity:.82}
+.stat .ssrc{font-size:11px;font-weight:500;margin-top:8px;letter-spacing:.01em}
+.stat.dark .ssrc,.stat.ink .ssrc{color:rgba(255,255,255,.38)}
+.stat.light .ssrc{color:var(--ink-deep);opacity:.38}
+.stat .blob{position:absolute;border-radius:50%;opacity:.28}
+.stat.dark .blob{width:130px;height:130px;background:var(--ink);top:-30px;right:-20px;filter:blur(10px)}
+.stat.ink .blob{width:100px;height:100px;background:var(--purple);bottom:-30px;right:-20px;filter:blur(6px)}
+@media(max-width:820px){.stats-grid{grid-template-columns:1fr}}
+
+/* ── SECTIONS ──────────────────────────── */
+section.blk{padding:84px 0}
+.sec-head{max-width:820px;margin-bottom:52px}
+.sec-head h2{font-size:clamp(28px,3.6vw,46px);font-weight:800;margin:14px 0 16px}
+.sec-head p{font-size:17px;color:var(--ink-deep);opacity:.85;line-height:1.55}
+
+/* ── PROBLEM bento ─────────────────────── */
+.prob-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.prob{background:var(--card);border:1px solid var(--line);border-top-width:3px;border-radius:var(--r);padding:32px 28px;transition:transform .22s ease,box-shadow .22s ease}
+.prob:hover{transform:translateY(-5px);box-shadow:0 16px 44px rgba(75,39,235,.13)}
+.prob:nth-child(1){border-top-color:var(--ink)}
+.prob:nth-child(1) .pico{background:var(--ink)}
+.prob:nth-child(2){border-top-color:var(--grass)}
+.prob:nth-child(2) .pico{background:var(--grass)}
+.prob:nth-child(3){border-top-color:var(--vio)}
+.prob:nth-child(3) .pico{background:var(--vio)}
+.prob .pico{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+.prob .pico svg{width:25px;height:25px;stroke:#fff;fill:none;stroke-width:2}
+.prob h3{font-size:21px;font-weight:700;margin-bottom:10px;color:var(--ink-deep)}
+.prob p{font-size:15px;color:var(--ink-deep);opacity:.82;line-height:1.5}
+@media(max-width:820px){.prob-grid{grid-template-columns:1fr}}
+
+/* ── HOW — dark bento steps ────────────── */
+.how{background:var(--dark)}
+.how .eyebrow{color:rgba(255,255,255,.65)}
+.how .sec-head h2{color:#fff}
+.how .sec-head p{color:var(--cream);opacity:.8}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.step{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:var(--r);padding:32px 28px;position:relative;overflow:hidden}
+.step .month{display:inline-flex;align-items:baseline;gap:10px;margin-bottom:22px}
+.step .mnum{font-family:'Montserrat',sans-serif;font-weight:900;font-size:60px;line-height:.8;color:#fff;opacity:.9}
+.step .mlbl{font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cream);opacity:.5}
+.step h3{color:#fff;font-size:22px;font-weight:700;margin:0 0 12px}
+.step p{font-size:15px;color:var(--cream);opacity:.78;line-height:1.55}
+.step .pico-fur{position:absolute;border-radius:50%;top:-16px;right:-16px;opacity:.32;width:72px;height:72px}
+.step:nth-child(1) .pico-fur{background:var(--green)}
+.step:nth-child(2) .pico-fur{background:var(--purple)}
+.step:nth-child(3) .pico-fur{background:var(--ink)}
+@media(max-width:820px){.steps{grid-template-columns:1fr}}
+
+/* ── PLATFORM ──────────────────────────── */
+.platform{padding:84px 0}
+.plat-top{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;margin-bottom:56px}
+.plat-text h2{font-size:clamp(26px,3.2vw,42px);font-weight:800;margin:14px 0 18px;color:var(--ink-deep)}
+.plat-lead{font-size:17px;color:var(--ink-deep);opacity:.85;line-height:1.6}
+.plat-radar-wrap{display:flex;align-items:center;justify-content:center}
+.radar-img{width:100%;max-width:420px;display:block;animation:radar-pulse 3s ease-in-out infinite}
+@keyframes radar-pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.03);opacity:.94}}
+.plat-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.plat-card{background:var(--card);border-radius:var(--r);padding:28px 24px;box-shadow:0 4px 24px rgba(54,39,123,.07);border-top:3px solid transparent}
+.plat-card:nth-child(1){border-top-color:var(--ink)}
+.plat-card:nth-child(2){border-top-color:var(--grass)}
+.plat-card:nth-child(3){border-top-color:var(--vio)}
+.plat-card:nth-child(4){border-top-color:var(--ink)}
+.plat-card h3{font-family:'Montserrat',sans-serif;font-size:17px;font-weight:700;color:var(--ink-deep);margin-bottom:10px;line-height:1.25}
+.plat-card p{font-size:14px;color:var(--ink-deep);opacity:.8;line-height:1.55}
+@media(max-width:900px){
+  .plat-top{grid-template-columns:1fr;gap:36px}
+  .plat-radar-wrap{order:-1}
+  .radar-img{max-width:280px;margin:0 auto}
+  .plat-cards{grid-template-columns:1fr 1fr}
+}
+@media(max-width:520px){.plat-cards{grid-template-columns:1fr}}
+
+/* ── CASE bento ────────────────────────── */
+.case-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;align-items:stretch}
+.case-text{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:42px}
+.case-tag{display:inline-block;font-family:'Montserrat',sans-serif;font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);background:rgba(75,39,235,.1);padding:6px 14px;border-radius:100px;margin-bottom:20px}
+.case-text h3{font-size:27px;font-weight:800;margin-bottom:16px;color:var(--ink-deep)}
+.case-text p{font-size:15.5px;color:var(--ink-deep);opacity:.85;margin-bottom:12px;line-height:1.55}
+.case-metrics{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.cm{background:var(--ink);color:#fff;border-radius:var(--r);padding:28px;display:flex;flex-direction:column;justify-content:center}
+.cm:nth-child(2){background:var(--dark)}
+.cm:nth-child(3){background:var(--dark)}
+.cm:nth-child(4){background:var(--ink)}
+.cm .cmv{font-family:'Montserrat',sans-serif;font-weight:900;font-size:44px;line-height:1;color:#fff}
+.cm .cml{font-size:13.5px;color:rgba(255,255,255,.8);margin-top:8px}
+@media(max-width:820px){.case-grid{grid-template-columns:1fr}}
+
+/* ── TARIFFS ───────────────────────────── */
+.tar-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:stretch}
+.tar{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:36px 30px;display:flex;flex-direction:column;transition:transform .22s ease,box-shadow .22s ease}
+.tar:not(.feat):hover{transform:translateY(-5px);box-shadow:0 16px 44px rgba(75,39,235,.13)}
+.tar.feat{background:var(--ink);color:#fff;box-shadow:0 24px 60px rgba(75,39,235,.28)}
+.tar.feat:hover{transform:translateY(-5px);box-shadow:0 28px 72px rgba(75,39,235,.42)}
+.tar.feat h3,.tar.feat .tsub{color:#fff}
+.tar.feat .tprice{color:#fff}
+.tar.feat .tli{color:rgba(255,255,255,.92)}
+.tar.feat .tli svg{stroke:rgba(255,255,255,.85)}
+.tar.feat .tprice .from{color:rgba(255,255,255,.55)}
+.tar.feat .tprice .per{color:rgba(255,255,255,.7)}
+.tbadge{font-family:'Montserrat',sans-serif;font-weight:700;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:rgba(255,255,255,.2);padding:5px 13px;border-radius:100px;align-self:flex-start;margin-bottom:16px}
+.tar h3{font-family:'Montserrat',sans-serif;font-size:25px;font-weight:800;color:var(--ink-deep);margin-bottom:5px}
+.tsub{font-size:15.5px;font-weight:500;color:var(--ink-deep);opacity:.88;margin-bottom:20px;line-height:1.3}
+.tprice{font-family:'Montserrat',sans-serif;font-weight:800;font-size:34px;color:var(--ink);margin-bottom:6px;line-height:1}
+.tprice .from{font-family:'Inter',sans-serif;font-weight:500;font-size:14px;color:var(--ink-deep);opacity:.55;display:block;margin-bottom:2px}
+.tprice .per{font-size:15px;font-weight:500;opacity:.65}
+.tdiv{height:1px;background:var(--line);margin:22px 0}
+.tar.feat .tdiv{background:rgba(255,255,255,.18)}
+.tgets{font-size:12.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;opacity:.6;margin-bottom:16px}
+.tlist{list-style:none;flex:1;margin-bottom:28px}
+.tli{display:flex;gap:11px;align-items:flex-start;font-size:14.5px;color:var(--ink-deep);margin-bottom:14px;line-height:1.45}
+.tli svg{width:18px;height:18px;stroke:var(--ink);fill:none;stroke-width:2.5;flex-shrink:0;margin-top:2px}
+@media(max-width:820px){.tar-grid{grid-template-columns:1fr}}
+.tnote{text-align:center;font-size:14px;color:var(--ink-deep);opacity:.6;margin-top:28px;max-width:540px;margin-left:auto;margin-right:auto;line-height:1.5}
+
+/* ── WHY bento ─────────────────────────── */
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.why{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:30px 26px;transition:transform .22s ease,box-shadow .22s ease}
+.why:hover{transform:translateY(-5px);box-shadow:0 16px 44px rgba(75,39,235,.13)}
+.why .wn{font-family:'Montserrat',sans-serif;font-weight:900;font-size:30px;margin-bottom:14px}
+.why:nth-child(1) .wn{color:var(--ink)}
+.why:nth-child(2) .wn{color:var(--grass)}
+.why:nth-child(3) .wn{color:var(--vio)}
+.why:nth-child(4) .wn{color:var(--ink)}
+.why h3{font-size:18px;font-weight:700;color:var(--ink-deep);margin-bottom:8px}
+.why p{font-size:14px;color:var(--ink-deep);opacity:.8;line-height:1.5}
+@media(max-width:880px){.why-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.why-grid{grid-template-columns:1fr}}
+
+/* ── CTA ───────────────────────────────── */
+.cta{background:var(--dark);border-radius:32px;padding:74px 40px;text-align:center;position:relative;overflow:hidden}
+.cta h2{color:#fff;font-size:clamp(28px,4vw,48px);font-weight:800;margin-bottom:18px;position:relative;z-index:2}
+.cta p{color:var(--cream);opacity:.85;font-size:18px;max-width:540px;margin:0 auto 32px;position:relative;z-index:2;line-height:1.55}
+.cta .btn{background:#fff;color:var(--ink);font-size:17px;padding:16px 38px;position:relative;z-index:2}
+.cta .btn:hover{box-shadow:0 14px 40px rgba(0,0,0,.45)}
+.cta-blob{position:absolute;border-radius:50%;opacity:.5}
+.cb1{width:220px;height:220px;background:var(--ink);top:-70px;right:-50px;filter:blur(26px)}
+.cb2{width:170px;height:170px;background:var(--purple);bottom:-60px;left:-40px;filter:blur(24px)}
+
+/* ── FOOTER ────────────────────────────── */
+footer{padding:50px 0 40px;border-top:1px solid var(--line);margin-top:30px}
+.foot-in{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:18px}
+.foot-in .logo{font-size:18px}
+.foot-links{display:flex;gap:24px;flex-wrap:wrap}
+.foot-links a{font-size:14px;color:var(--ink-deep);opacity:.7;text-decoration:none;transition:opacity .2s}
+.foot-links a:hover{opacity:1}
+.foot-copy{font-size:13px;color:var(--ink-deep);opacity:.45;margin-top:18px;line-height:1.5}
+
+/* ── SCROLL REVEAL ─────────────────────── */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* ── MOBILE ────────────────────────────── */
+@media(max-width:480px){
+  .wrap{padding:0 20px}
+  .hero{padding:48px 0 40px}
+  .hero-cta{flex-direction:column;align-items:stretch}
+  .hero-cta .btn{text-align:center}
+  .offer{border-radius:14px;align-items:flex-start;gap:10px}
+  .cta{padding:48px 20px;border-radius:20px}
+  .stats-grid,.prob-grid,.tar-grid,.why-grid,.steps{gap:12px}
+  .case-grid{gap:12px}
+  .stat{padding:26px 22px;min-height:170px}
+  .prob,.why,.step,.tar{padding:24px 20px}
+  .case-text{padding:28px 22px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  .mascot{animation:none}
+  .radar-img{animation:none}
+  .hero-mascot-wrap{transition:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─────────────────────────────────── -->
+<nav>
+  <div class="wrap nav-in">
+    <div class="logo"><span>creative</span><span class="logo-cmd">command<span class="logo-dot">.</span></span></div>
+    <div class="nav-links">
+      <a href="#problem">Проблема</a>
+      <a href="#how">Как работаем</a>
+      <a href="#tariffs">Тарифы</a>
+      <a href="#contact" class="btn">Проверить бренд</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ─── HERO ─────────────────────────────────── -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div class="hero-col-text">
+      <div class="eyebrow">GEO · Generative Engine Optimization</div>
+      <h1>Покупатель спросил у&nbsp;нейросети.<br><span class="muted">Она посоветовала конкурента.</span></h1>
+      <p class="lead">Люди всё чаще спрашивают у ChatGPT, Алисы и Perplexity, что купить. Мы проверяем, советуют ли нейросети ваш бренд — и делаем так, чтобы советовали.</p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn">Проверить свой бренд</a>
+        <a href="#how" class="btn btn-ghost">Как это работает</a>
+      </div>
+      <div class="offer">
+        <span class="dot"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span>
+        <span>Бесплатная экспресс-проверка — покажем, что нейросети отвечают про вас прямо сейчас</span>
+      </div>
+    </div>
+
+    <div class="hero-mascot-wrap">
+      <img src="mascot.png" alt="GEO маскот" class="mascot">
+    </div>
+  </div>
+</header>
+
+<!-- ─── STATS BENTO ───────────────────────────── -->
+<section class="stats">
+  <div class="wrap">
+    <div class="stats-grid">
+
+      <div class="stat dark main reveal">
+        <div class="blob"></div>
+        <div class="sv">73%</div>
+        <div class="sl">россиян пользовались нейросетями за последний год</div>
+        <div class="ssrc">Источник: ВЦИОМ, 2025</div>
+      </div>
+
+      <div class="stat ink reveal">
+        <div class="blob"></div>
+        <div class="sv">39%</div>
+        <div class="sl">уже покупают товары по рекомендации ИИ</div>
+        <div class="ssrc">Источник: Tangerine, 2026</div>
+      </div>
+
+      <div class="stat light reveal">
+        <div class="sv">×1,4</div>
+        <div class="sl">во столько раз выше конверсия с рекомендаций ИИ, чем с обычной рекламы</div>
+        <div class="ssrc">Источник: Adobe</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROBLEM ───────────────────────────────── -->
+<section class="blk" id="problem">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Что происходит</div>
+      <h2>Поиск изменился. А&nbsp;ваш маркетинг — ещё нет</h2>
+      <p>В поиске покупатель сам выбирает из списка. У нейросети списка нет — она называет бренд сразу. Если это не вы, выбор уже сделан без вас.</p>
+    </div>
+    <div class="prob-grid">
+      <div class="prob reveal">
+        <div class="pico"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg></div>
+        <h3>Вас не находят</h3>
+        <p>На вопрос «посоветуй бренд в категории» ИИ называет конкурентов. Вас — ни в одном ответе. Для нейросети вы не существуете.</p>
+      </div>
+      <div class="prob reveal">
+        <div class="pico"><svg viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg></div>
+        <h3>О вас выдумывают</h3>
+        <p>ИИ уверенно путает страну, сочиняет продукты и состав, которых нет. Клиент читает это как факт и принимает решение.</p>
+      </div>
+      <div class="prob reveal">
+        <div class="pico"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></div>
+        <h3>Конкуренты впереди</h3>
+        <p>Нейросеть советует тех, кого знает. Каждый такой ответ без вас — это клиент, который ушёл к конкуренту.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── HOW ───────────────────────────────────── -->
+<section class="blk how" id="how">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Как мы работаем</div>
+      <h2>Не разовый отчёт, а&nbsp;рост присутствия</h2>
+      <p>Аудит показывает, где вы сейчас. Дальше три месяца ведём бренд: исправляем факты, выстраиваем присутствие в источниках, замеряем динамику.</p>
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="pico-fur"></div>
+        <div class="month"><span class="mnum">01</span><span class="mlbl">Месяц</span></div>
+        <h3>Диагностика</h3>
+        <p>Прогоняем бренд через ChatGPT, Perplexity, GigaChat и Алису. Фиксируем точку отсчёта: видимость, конкуренты, ошибки, источники. Исправляем факты о бренде.</p>
+      </div>
+      <div class="step reveal">
+        <div class="pico-fur"></div>
+        <div class="month"><span class="mnum">02</span><span class="mlbl">Месяц</span></div>
+        <h3>Присутствие</h3>
+        <p>Создаём контент, который читают нейросети. Выстраиваем упоминания в источниках, на которые опирается ИИ. Работаем с отзывами и площадками.</p>
+      </div>
+      <div class="step reveal">
+        <div class="pico-fur"></div>
+        <div class="month"><span class="mnum">03</span><span class="mlbl">Месяц</span></div>
+        <h3>Замер и рост</h3>
+        <p>Повторный аудит — сравниваем с нулевой точкой. Показываем динамику в цифрах. Усиливаем то, что сработало. Решаем, что дальше.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PLATFORM ─────────────────────────────── -->
+<section class="platform" id="platform">
+  <div class="wrap">
+    <div class="plat-top">
+      <div class="plat-text reveal">
+        <div class="eyebrow">Платформа</div>
+        <h2>За услугой — собственная платформа аудита</h2>
+        <p class="plat-lead">Не ручная работа на глаз. Прогоняем бренд через нейросети, считаем присутствие в цифрах и отделяем реальные ошибки от шума.</p>
+      </div>
+      <div class="plat-radar-wrap reveal">
+        <img src="radar.png" alt="GEO радар — визуализация присутствия бренда в нейросетях" class="radar-img">
+      </div>
+    </div>
+    <div class="plat-cards">
+      <div class="plat-card reveal">
+        <h3>Прогон через нейросети</h3>
+        <p>Проверяем бренд в Perplexity, GigaChat и YandexGPT — тех системах, где покупатели реально спрашивают совета. На очереди — OpenAI.</p>
+      </div>
+      <div class="plat-card reveal">
+        <h3>Индекс присутствия 0–100</h3>
+        <p>Считаем Share of Voice и сводим в одну метрику. Видно, насколько часто нейросети советуют вас, а не конкурента.</p>
+      </div>
+      <div class="plat-card reveal">
+        <h3>Честный фактчекинг</h3>
+        <p>Делим найденное на «противоречия» и «требует проверки». Не раздуваем проблемы — показываем, где ИИ реально врёт о вас, а где стоит перепроверить.</p>
+      </div>
+      <div class="plat-card reveal">
+        <h3>История и динамика</h3>
+        <p>Каждый аудит сохраняется. На повторных проверках видно рост присутствия в цифрах — не обещания, а замеренный результат.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CASE ──────────────────────────────────── -->
+<section class="blk" id="case">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Кейс</div>
+      <h2>Как это выглядит на&nbsp;практике</h2>
+    </div>
+    <div class="case-grid reveal">
+      <div class="case-text">
+        <span class="case-tag">Бренд, выходящий на рынок</span>
+        <h3>От нуля к присутствию за квартал</h3>
+        <p>Новый бренд готовился к запуску. Нейросети про него молчали, а на прямые вопросы — путали страну происхождения и придумывали продукты, которых нет.</p>
+        <p>За три месяца мы исправили факты, выстроили присутствие в ключевых источниках и нарастили корректные упоминания. Бренд начал появляться в ответах ИИ по своей категории.</p>
+      </div>
+      <div class="case-metrics">
+        <div class="cm"><div class="cmv">0%</div><div class="cml">видимость на старте</div></div>
+        <div class="cm"><div class="cmv">8</div><div class="cml">галлюцинаций исправлено</div></div>
+        <div class="cm"><div class="cmv">4</div><div class="cml">нейросети под контролем</div></div>
+        <div class="cm"><div class="cmv">28</div><div class="cml">сценариев проверено</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TARIFFS ───────────────────────────────── -->
+<section class="blk" id="tariffs">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Форматы работы</div>
+      <h2>Выберите глубину</h2>
+      <p>Начинаем с аудита, дальше — ведение на три месяца. Финальная стоимость зависит от ниши и объёма; на сайте — стартовые вилки.</p>
+    </div>
+    <div class="tar-grid">
+
+      <div class="tar reveal">
+        <h3>Старт</h3>
+        <div class="tsub">база: вас видят и не путают</div>
+        <div class="tprice"><span class="from">от</span>60 000 ₽<span class="per"> / мес</span></div>
+        <div class="tdiv"></div>
+        <div class="tgets">Что получаете</div>
+        <ul class="tlist">
+          <li class="tli"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg>Полный аудит присутствия по 4 нейросетям</li>
+          <li class="tli"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg>Исправление неверных фактов о бренде</li>
+          <li class="tli"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg>Настройка базового присутствия в каталогах и источниках</li>
+          <li class="tli"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg>Замер динамики и отчёт</li>
+        </ul>
+        <a href="mailto:hello@creativecommand.ru?subject=GEO Старт" class="btn btn-ghost" style="text-align:center">Обсудить</a>
+      </div>
+
+      <div class="tar feat reveal">
+        <span class="tbadge">Рекомендуем</span>
+        <h3>Рост</h3>
+        <div class="tsub">вас рекомендуют в нише</div>
+        <div class="tprice"><span class="from">от</span>130 000 ₽<span class="per"> / мес</span></div>
+        <div class="tdiv"></div>
+        <div class="tgets">Всё из «Старт», плюс</div>
+        <ul class="tlist">
+          <li class="tli"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg>Экспертный контент, который цитируют нейросети</li>
+          <li class="tli"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg>Размещения в источниках, на которые опирается ИИ</li>
+          <li class="tli"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg>Работа с отзывами и маркетплейсами</li>
+          <li class="tli"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg>Ежемесячный замер с динамикой «было → стало»</li>
+        </ul>
+        <a href="mailto:hello@creativecommand.ru?subject=GEO Рост" class="btn" style="background:#fff;color:var(--ink);text-align:center">Обсудить</a>
+      </div>
+
+      <div class="tar reveal">
+        <h3>Под ключ</h3>
+        <div class="tsub">доминирование в выдаче ИИ</div>
+        <div class="tprice"><span class="from">от</span>200 000 ₽<span class="per"> / мес</span></div>
+        <div class="tdiv"></div>
+        <div class="tgets">Всё из «Рост», плюс</div>
+        <ul class="tlist">
+          <li class="tli"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg>PR-размещения и работа с медиа</li>
+          <li class="tli"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg>Присутствие в энциклопедиях и авторитетных ресурсах</li>
+          <li class="tli"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg>Расширенная семантика и больше сценариев</li>
+          <li class="tli"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg>Приоритетное ведение со стратегом</li>
+        </ul>
+        <a href="mailto:hello@creativecommand.ru?subject=GEO Под ключ" class="btn btn-ghost" style="text-align:center">Обсудить</a>
+      </div>
+
+    </div>
+    <p class="tnote">Минимальный срок ведения — 3 месяца. За меньший срок нейросети просто не успевают заметить изменения.</p>
+  </div>
+</section>
+
+<!-- ─── WHY ──────────────────────────────────── -->
+<section class="blk" id="why">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Почему мы</div>
+      <h2>Не только аудит. Доводим до результата</h2>
+    </div>
+    <div class="why-grid">
+      <div class="why reveal">
+        <div class="wn">01</div>
+        <h3>Своя платформа</h3>
+        <p>Собственный инструмент аудита по нескольким нейросетям. Не таблица на коленке — измеримая методология.</p>
+      </div>
+      <div class="why reveal">
+        <div class="wn">02</div>
+        <h3>Четыре ИИ-системы</h3>
+        <p>Проверяем присутствие в ChatGPT, Perplexity, GigaChat и Алисе — там, где сидят ваши покупатели.</p>
+      </div>
+      <div class="why reveal">
+        <div class="wn">03</div>
+        <h3>Честные метрики</h3>
+        <p>Не обещаем волшебных цифр. Гарантируем процесс, объём работ и прозрачный замер динамики.</p>
+      </div>
+      <div class="why reveal">
+        <div class="wn">04</div>
+        <h3>Креативное агентство</h3>
+        <p>За GEO стоит Creative Command. Делаем не только аналитику, но и контент, который приводит клиентов.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA ──────────────────────────────────── -->
+<section class="blk" id="contact">
+  <div class="wrap">
+    <div class="cta reveal">
+      <div class="cta-blob cb1"></div>
+      <div class="cta-blob cb2"></div>
+      <h2>Узнайте, что ИИ говорит о&nbsp;вас</h2>
+      <p>Пришлём бесплатную экспресс-проверку по вашему бренду. Покажем, видят ли вас нейросети, кого советуют вместо и где врут.</p>
+      <a href="mailto:hello@creativecommand.ru?subject=GEO-проверка бренда" class="btn">Запросить экспресс-проверку</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ────────────────────────────────── -->
+<footer>
+  <div class="wrap">
+    <div class="foot-in">
+      <div class="logo"><span>creative</span><span class="logo-cmd">command<span class="logo-dot">.</span></span></div>
+      <div class="foot-links">
+        <a href="#problem">Проблема</a>
+        <a href="#how">Как работаем</a>
+        <a href="#tariffs">Тарифы</a>
+        <a href="#contact">Контакт</a>
+      </div>
+    </div>
+    <p class="foot-copy">GEO — направление агентства Creative Command. Продвижение брендов в ответах генеративных нейросетей.</p>
+  </div>
+</footer>
+
+<script>
+const io = new IntersectionObserver(
+  (entries) => entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+  }),
+  { threshold: .1 }
+);
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>

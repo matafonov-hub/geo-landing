@@ -11,25 +11,30 @@
 <style>
 :root{
   --ink:#4B27EB;
-  --ink-deep:#36277B;
+  --ink-deep:#2A1F5C;      /* глубокий фирменный индиго — заголовки карточек, сильный текст */
+  --ink-brand:#3A2A7A;
+  --text:#241C40;          /* высококонтрастный основной текст */
+  --muted:#615980;         /* сдержанный вторичный текст */
   --cream:#F5EFDD;
   --card:#FBF7EC;
-  --dark:#1A1730;
+  --dark:#161227;
   --green:#5FA84B;
   --purple:#7C5BD9;
   --grass:#3FA535;
   --elec:#6B4FFF;
-  --line:rgba(54,39,123,.13);
-  --r:24px;
+  --line:rgba(33,26,59,.12);
+  --r:22px;
   --fh:'Montserrat',sans-serif;
   --fb:'Inter',sans-serif;
   --fm:'JetBrains Mono',monospace;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{font-family:var(--fb);background:var(--cream);color:var(--ink-deep);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-.wrap{max-width:1200px;margin:0 auto;padding:0 52px}
-h1,h2,h3{font-family:var(--fh);color:var(--ink);line-height:1.05;letter-spacing:-.02em}
+body{font-family:var(--fb);background:var(--cream);color:var(--ink-deep);line-height:1.62;-webkit-font-smoothing:antialiased;overflow-x:hidden;font-size:16.5px}
+.wrap{max-width:1320px;margin:0 auto;padding:0 44px}
+.wrap-narrow{max-width:1060px;margin:0 auto;padding:0 44px}
+@media(max-width:640px){.wrap,.wrap-narrow{padding:0 20px}}
+h1,h2,h3{font-family:var(--fh);color:var(--ink);line-height:1.05;letter-spacing:-.022em}
 
 /* eyebrow */
 .eyebrow{font-family:var(--fh);font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink)}
@@ -57,10 +62,18 @@ nav{position:sticky;top:0;z-index:50;background:rgba(245,239,221,.9);backdrop-fi
 .hero h1 .muted{color:var(--ink-deep);opacity:.38}
 .hero p.lead{font-size:clamp(16px,1.8vw,19px);color:var(--ink-deep);margin-bottom:30px;line-height:1.6}
 .hero-cta{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
-.offer{display:inline-flex;align-items:center;gap:12px;margin-top:26px;background:var(--card);border:1px solid var(--line);border-radius:100px;padding:11px 20px 11px 13px}
-.offer .dot{width:34px;height:34px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.offer .dot svg{width:18px;height:18px;stroke:#fff;fill:none;stroke-width:2.5}
-.offer span{font-size:14px;color:var(--ink-deep);font-weight:500;line-height:1.35}
+.hero-offer{display:flex;align-items:center;gap:16px;margin-top:30px;background:linear-gradient(100deg,rgba(75,39,235,.09),rgba(107,79,255,.05));border:1px solid rgba(75,39,235,.2);border-radius:18px;padding:16px 16px 16px 22px;text-decoration:none;box-shadow:0 8px 26px rgba(75,39,235,.07);transition:transform .28s cubic-bezier(.16,1,.3,1),box-shadow .28s,border-color .28s;max-width:620px}
+.hero-offer:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(75,39,235,.16);border-color:rgba(75,39,235,.4)}
+.ho-live{position:relative;width:10px;height:10px;flex-shrink:0}
+.ho-pulse{position:absolute;inset:0;border-radius:50%;background:var(--grass);box-shadow:0 0 0 0 rgba(63,165,53,.5)}
+.ho-pulse::after{content:"";position:absolute;inset:0;border-radius:50%;background:var(--grass);animation:ho-ring 2s ease-out infinite}
+@keyframes ho-ring{0%{transform:scale(1);opacity:.55}100%{transform:scale(3.6);opacity:0}}
+.ho-txt{flex:1;font-size:14.5px;color:var(--muted);line-height:1.4;font-weight:450}
+.ho-txt b{color:var(--ink-deep);font-weight:700}
+.ho-arrow{width:38px;height:38px;border-radius:50%;background:var(--ink);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform .28s}
+.hero-offer:hover .ho-arrow{transform:translateX(3px)}
+.ho-arrow svg{width:17px;height:17px;stroke:#fff;fill:none;stroke-width:2.4}
+@media(prefers-reduced-motion:reduce){.ho-pulse::after{animation:none}}
 .hero-col-text{position:relative;z-index:2}
 .hero-mascot-wrap{position:relative;z-index:1;display:flex;align-items:center;justify-content:flex-end;overflow:visible;margin-top:-36px;transition:transform .4s ease}
 .hero-mascot-wrap:hover{transform:scale(1.05)}
@@ -97,36 +110,23 @@ nav{position:sticky;top:0;z-index:50;background:rgba(245,239,221,.9);backdrop-fi
 @media(max-width:820px){.stats-grid{grid-template-columns:1fr}}
 
 /* ── SECTIONS ──────────────────────────── */
-section.blk{padding:84px 0}
+section.blk{padding:92px 0}
 .sec-head{max-width:820px;margin-bottom:52px}
-.sec-head h2{font-size:clamp(28px,3.6vw,46px);font-weight:800;margin:12px 0 16px}
-.sec-head p{font-size:17px;color:var(--ink-deep);opacity:.82;line-height:1.6}
+.sec-head h2{font-size:clamp(34px,4.6vw,60px);font-weight:800;margin:16px 0 20px;letter-spacing:-.035em;line-height:1.02}
+.sec-head p{font-size:19px;color:var(--muted);opacity:1;line-height:1.55;font-weight:450;max-width:680px}
 
 /* ── PROBLEM accordion ─────────────────── */
-.prob-layout{display:grid;grid-template-columns:1fr 280px;gap:56px;align-items:end}
+.prob-layout{display:grid;grid-template-columns:1fr 380px;gap:56px;align-items:center}
 .prob-content{min-width:0}
-.prob-avatar{display:flex;justify-content:center;align-items:flex-end}
-.furry-lost-img{width:260px;display:block;animation:mascot-float 4s ease-in-out infinite}
-.prob-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:start}
-.prob{background:var(--card);border:1px solid var(--line);border-top:3px solid transparent;border-radius:var(--r);padding:32px 28px;cursor:pointer;transition:transform .22s ease,box-shadow .22s ease}
-.prob:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(75,39,235,.1)}
-.prob:nth-child(1){border-top-color:var(--ink)}
-.prob:nth-child(1) .pico{background:var(--ink)}
-.prob:nth-child(2){border-top-color:var(--grass)}
-.prob:nth-child(2) .pico{background:var(--grass)}
-.prob:nth-child(3){border-top-color:var(--elec)}
-.prob:nth-child(3) .pico{background:var(--elec)}
-.prob .pico{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:20px}
-.prob .pico svg{width:25px;height:25px;stroke:#fff;fill:none;stroke-width:2}
-.prob-header{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
-.prob-header h3{font-size:20px;font-weight:700;color:var(--ink-deep);line-height:1.2}
-.prob-chevron{flex-shrink:0;width:20px;height:20px;stroke:var(--ink-deep);stroke-width:2.5;fill:none;opacity:.4;margin-top:4px;transition:transform .32s ease,opacity .2s}
-.prob.open .prob-chevron{transform:rotate(180deg);opacity:.8}
-.acc-hint{font-size:14px;color:var(--ink-deep);opacity:.55;line-height:1.45;margin-top:10px}
-.prob-body{max-height:0;overflow:hidden;transition:max-height .42s ease,opacity .3s ease;opacity:0}
-.prob.open .prob-body{max-height:240px;opacity:1}
-.prob.open .acc-hint{display:none}
-.prob-body p{font-size:15px;color:var(--ink-deep);opacity:.8;line-height:1.6;padding-top:12px}
+.prob-avatar{position:relative;display:flex;justify-content:center;align-items:center}
+.furry-lost-img{position:relative;width:360px;max-width:100%;display:block;animation:mascot-float 4s ease-in-out infinite;filter:drop-shadow(0 24px 44px rgba(33,26,59,.14))}
+.prob-grid{display:grid;grid-template-columns:1fr;gap:14px;align-items:start}
+.prob{display:grid;grid-template-columns:56px 1fr;gap:22px;align-items:start;background:linear-gradient(150deg,#fffdf8,var(--card));border:1px solid var(--line);border-radius:var(--r);padding:28px 32px;transition:transform .28s cubic-bezier(.16,1,.3,1),box-shadow .28s ease,border-color .28s}
+.prob:hover{transform:translateY(-4px);box-shadow:0 18px 44px rgba(33,26,59,.08);border-color:rgba(75,39,235,.22)}
+.prob .pico{width:56px;height:56px;border-radius:16px;background:var(--ink);display:flex;align-items:center;justify-content:center}
+.prob .pico svg{width:26px;height:26px;stroke:#fff;fill:none;stroke-width:2}
+.prob-main h3{font-family:var(--fh);font-size:20px;font-weight:700;color:var(--ink-deep);line-height:1.2;margin-bottom:8px;letter-spacing:-.01em}
+.prob-main p{font-size:15px;color:var(--muted);line-height:1.55}
 @media(max-width:820px){.prob-layout{grid-template-columns:1fr}.prob-avatar{display:none}.prob-grid{grid-template-columns:1fr}}
 
 /* ── HOW ───────────────────────────────── */
@@ -136,9 +136,10 @@ section.blk{padding:84px 0}
 .how .sec-head p{color:var(--cream);opacity:.75}
 .how .sec-head{margin-bottom:36px}
 
-.how-layout{display:grid;grid-template-columns:1fr 360px;gap:64px;align-items:center}
-.how-radar{display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.how-radar .radar-img{width:360px;display:block;animation:radar-pulse 3s ease-in-out infinite}
+.how-layout{display:grid;grid-template-columns:1fr 430px;gap:56px;align-items:center}
+.how-radar{position:relative;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.how-radar::before{content:"";position:absolute;width:340px;height:340px;border-radius:50%;background:var(--elec);opacity:.22;filter:blur(72px);pointer-events:none}
+.how-radar .radar-img{position:relative;width:430px;max-width:100%;display:block;animation:radar-pulse 3s ease-in-out infinite}
 @keyframes radar-pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.04);opacity:.9}}
 
 /* Timeline */
@@ -156,12 +157,8 @@ section.blk{padding:84px 0}
 .tl-panel{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:18px;padding:18px 18px 16px;cursor:pointer;transition:background .2s,border-color .25s}
 .tl-panel:hover{background:rgba(255,255,255,.08)}
 .tl-panel.open{background:rgba(255,255,255,.09)}
-.tl-panel.n1{border-top:2px solid rgba(110,223,138,.22)}
-.tl-panel.n2{border-top:2px solid rgba(142,184,255,.22)}
-.tl-panel.n3{border-top:2px solid rgba(181,161,255,.22)}
-.tl-panel.n1.open{border-top-color:rgba(110,223,138,.55)}
-.tl-panel.n2.open{border-top-color:rgba(142,184,255,.55)}
-.tl-panel.n3.open{border-top-color:rgba(181,161,255,.55)}
+.tl-panel.n1,.tl-panel.n2,.tl-panel.n3{border-top:2px solid rgba(155,134,255,.2)}
+.tl-panel.n1.open,.tl-panel.n2.open,.tl-panel.n3.open{border-top-color:rgba(155,134,255,.55)}
 .tlp-top{display:flex;align-items:flex-start;gap:10px}
 /* мобильные номера (JetBrains Mono) */
 .tlp-mob-num{display:none;font-family:var(--fm);font-weight:700;font-size:36px;color:rgba(255,255,255,.7);line-height:1;flex-shrink:0}
@@ -186,8 +183,8 @@ section.blk{padding:84px 0}
 /* ── PLATFORM ──────────────────────────── */
 .platform{padding:84px 0}
 .plat-top{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;margin-bottom:52px}
-.plat-text h2{font-size:clamp(24px,3vw,40px);font-weight:800;margin:12px 0 18px;color:var(--ink-deep)}
-.plat-lead{font-size:17px;color:var(--ink-deep);opacity:.82;line-height:1.6}
+.plat-text h2{font-size:clamp(30px,3.7vw,50px);font-weight:800;margin:16px 0 20px;color:var(--ink);letter-spacing:-.035em;line-height:1.04}
+.plat-lead{font-size:18px;color:var(--muted);line-height:1.6}
 
 /* Mock interface */
 .plat-mock{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:22px;box-shadow:0 4px 28px rgba(54,39,123,.08)}
@@ -213,17 +210,15 @@ section.blk{padding:84px 0}
 
 /* Platform cards */
 .plat-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
-.plat-card{background:var(--card);border-radius:var(--r);padding:28px 22px;box-shadow:0 2px 20px rgba(54,39,123,.06);border-top:3px solid transparent;display:flex;flex-direction:column}
-.plat-card:nth-child(1){border-top-color:var(--ink)}
-.plat-card:nth-child(2){border-top-color:var(--grass)}
-.plat-card:nth-child(3){border-top-color:var(--elec)}
-.plat-card:nth-child(4){border-top-color:var(--ink)}
-.plat-metric{margin-bottom:14px}
-.plat-val{font-family:var(--fh);font-weight:800;font-size:26px;line-height:1.15;display:block;letter-spacing:-.02em}
-.plat-card:nth-child(1) .plat-val{color:var(--ink)}
-.plat-card:nth-child(2) .plat-val{color:var(--grass)}
-.plat-card:nth-child(3) .plat-val{color:var(--elec)}
-.plat-card:nth-child(4) .plat-val{color:var(--ink)}
+.plat-card{position:relative;overflow:hidden;background:linear-gradient(162deg,#fffdf8,var(--card));border:1px solid var(--line);border-radius:var(--r);padding:28px 26px;box-shadow:0 2px 18px rgba(33,26,59,.05);display:flex;flex-direction:column;transition:transform .26s cubic-bezier(.16,1,.3,1),box-shadow .26s,border-color .26s}
+.plat-card:hover{transform:translateY(-5px);box-shadow:0 18px 44px rgba(33,26,59,.09);border-color:rgba(75,39,235,.22)}
+.plat-ic{width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.plat-ic svg{width:22px;height:22px;fill:none;stroke-width:2.2}
+.plat-ic.i-ink{background:rgba(75,39,235,.1)}.plat-ic.i-ink svg{stroke:var(--ink)}
+.plat-ic.i-green{background:rgba(63,165,53,.13)}.plat-ic.i-green svg{stroke:var(--grass)}
+.plat-ic.i-amber{background:rgba(198,124,30,.14)}.plat-ic.i-amber svg{stroke:#C67C1E}
+.plat-metric{margin-bottom:12px}
+.plat-val{font-family:var(--fh);font-weight:800;font-size:31px;line-height:1.1;display:block;letter-spacing:-.03em;color:var(--ink)}
 .plat-unit{font-family:var(--fb);font-size:12px;font-weight:500;color:var(--ink-deep);opacity:.45;display:block;margin-top:3px}
 .plat-val-row{display:flex;align-items:baseline;gap:2px}
 .plat-suffix{font-family:var(--fh);font-weight:800;font-size:17px;color:var(--ink);line-height:1;letter-spacing:-.02em}
@@ -318,6 +313,25 @@ footer{padding:50px 0 40px;border-top:1px solid var(--line);margin-top:30px}
 .foot-links a{font-size:14px;color:var(--ink-deep);opacity:.65;text-decoration:none;transition:opacity .2s}
 .foot-links a:hover{opacity:1}
 .foot-copy{font-size:13px;color:var(--ink-deep);opacity:.42;margin-top:18px;line-height:1.5}
+.foot-legal{display:flex;justify-content:space-between;flex-wrap:wrap;gap:22px;margin-top:30px;padding-top:26px;border-top:1px solid var(--line)}
+.foot-req{display:flex;flex-direction:column;gap:5px;font-size:13px;color:var(--ink-deep);opacity:.6;line-height:1.45;max-width:560px}
+.foot-req a{color:var(--ink);text-decoration:none;opacity:1}
+.foot-req a:hover{text-decoration:underline}
+.foot-req-name{font-family:var(--fh);font-weight:700;opacity:.85;font-size:14px}
+.foot-legal-links{display:flex;flex-direction:column;gap:9px;align-items:flex-start}
+.foot-legal-links a{font-size:13px;color:var(--ink-deep);opacity:.65;text-decoration:none;transition:opacity .2s}
+.foot-legal-links a:hover{opacity:1}
+@media(max-width:640px){.foot-legal{flex-direction:column;gap:20px}}
+/* cookie banner */
+.cookie-banner{position:fixed;left:16px;right:16px;bottom:16px;z-index:200;max-width:560px;margin:0 auto;background:var(--dark);color:#fff;border-radius:20px;padding:20px 22px;box-shadow:0 20px 60px rgba(26,23,48,.4);display:flex;flex-direction:column;gap:14px}
+.cookie-banner[hidden]{display:none}
+.cookie-banner p{font-size:13.5px;line-height:1.5;color:rgba(255,255,255,.86);margin:0}
+.cookie-banner a{color:#9B86FF;text-decoration:underline}
+.cookie-actions{display:flex;gap:10px;flex-wrap:wrap}
+.cookie-actions button{font-family:var(--fh);font-weight:700;font-size:13px;border:none;border-radius:100px;padding:10px 18px;cursor:pointer;transition:transform .2s,opacity .2s}
+.cookie-actions button:hover{transform:translateY(-1px)}
+.ck-accept{background:#fff;color:var(--dark)}
+.ck-essential{background:rgba(255,255,255,.14);color:#fff}
 
 /* ── SCROLL REVEAL ─────────────────────── */
 .reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
@@ -329,7 +343,7 @@ footer{padding:50px 0 40px;border-top:1px solid var(--line);margin-top:30px}
   .hero{padding:48px 0 40px}
   .hero-cta{flex-direction:column;align-items:stretch}
   .hero-cta .btn{text-align:center}
-  .offer{border-radius:14px;align-items:flex-start;gap:10px}
+  .hero-offer{border-radius:20px;align-items:center;gap:12px;padding:9px 10px 9px 16px}
   .cta{padding:56px 20px;border-radius:20px}
   .cta-mascot-wrap{display:none}
   .stats-grid,.prob-grid,.tar-grid{gap:12px}
@@ -375,10 +389,11 @@ footer{padding:50px 0 40px;border-top:1px solid var(--line);margin-top:30px}
         <a href="https://t.me/geo_cc_bot?start=site" class="btn" target="_blank" rel="noopener">Проверить свой бренд</a>
         <a href="#how" class="btn btn-ghost">Как это работает</a>
       </div>
-      <div class="offer">
-        <span class="dot"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span>
-        <span>Бесплатная экспресс-проверка — покажем, что нейросети отвечают про вас прямо сейчас</span>
-      </div>
+      <a class="hero-offer" href="https://t.me/geo_cc_bot?start=site" target="_blank" rel="noopener">
+        <span class="ho-live"><span class="ho-pulse"></span></span>
+        <span class="ho-txt"><b>Бесплатная экспресс-проверка.</b> Покажем, кого нейросети советуют в вашей нише и что говорят о вашем бренде</span>
+        <span class="ho-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+      </a>
     </div>
     <div class="hero-mascot-wrap">
       <img src="mascot.png" alt="GEO маскот" class="mascot">
@@ -425,37 +440,25 @@ footer{padding:50px 0 40px;border-top:1px solid var(--line);margin-top:30px}
 
       <div class="prob reveal">
         <div class="pico"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg></div>
-        <div class="prob-header">
+        <div class="prob-main">
           <h3>Вас не находят</h3>
-          <svg class="prob-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
-        </div>
-        <p class="acc-hint">Нейросети называют конкурентов. Вас — ни разу.</p>
-        <div class="prob-body">
-          <p>На вопрос посоветуй бренд в категории ИИ называет конкурентов. Вас — ни в одном ответе. Для нейросети вы не существуете.</p>
+          <p>На вопрос «посоветуй бренд в категории» ИИ называет конкурентов, а вас — ни в одном ответе. Для нейросети вас просто не существует.</p>
         </div>
       </div>
 
       <div class="prob reveal">
         <div class="pico"><svg viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg></div>
-        <div class="prob-header">
+        <div class="prob-main">
           <h3>О вас выдумывают</h3>
-          <svg class="prob-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
-        </div>
-        <p class="acc-hint">ИИ уверенно врёт о вашем бренде — клиент не догадывается.</p>
-        <div class="prob-body">
-          <p>ИИ уверенно путает страну, сочиняет продукты и состав, которых нет. Клиент читает это как факт и принимает решение на основе галлюцинации.</p>
+          <p>ИИ уверенно путает страну, сочиняет продукты и состав, которых нет. Клиент читает это как факт и решает на основе галлюцинации.</p>
         </div>
       </div>
 
       <div class="prob reveal">
         <div class="pico"><svg viewBox="0 0 24 24"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 5-6"/></svg></div>
-        <div class="prob-header">
+        <div class="prob-main">
           <h3>Конкуренты впереди</h3>
-          <svg class="prob-chevron" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
-        </div>
-        <p class="acc-hint">Пока вас нет в ответах ИИ — покупатель уходит к другим.</p>
-        <div class="prob-body">
-          <p>Нейросеть советует тех, кого знает. Каждый такой ответ без вас — это клиент, который ушёл к конкуренту. И это происходит тысячи раз в день.</p>
+          <p>Нейросеть советует тех, кого знает. Каждый ответ без вас — это клиент, который ушёл к конкуренту. И так происходит тысячи раз в день.</p>
         </div>
       </div>
 
@@ -480,76 +483,43 @@ footer{padding:50px 0 40px;border-top:1px solid var(--line);margin-top:30px}
           <p>Аудит показывает, где вы сейчас. Дальше три месяца ведём бренд: исправляем факты, выстраиваем присутствие в источниках, замеряем динамику.</p>
         </div>
 
-        <div class="how-tl-wrap reveal">
-          <!-- Кружки 01→02→03, без тегов-дублей под ними -->
-          <div class="tl-row">
-            <div class="tl-node">
-              <div class="tl-circle">01</div>
-              <div class="tl-lbl">Месяц</div>
-            </div>
-            <div class="tl-conn">
-              <div class="tl-line"></div>
-              <span class="tl-arr">&#8594;</span>
-            </div>
-            <div class="tl-node">
-              <div class="tl-circle">02</div>
-              <div class="tl-lbl">Месяц</div>
-            </div>
-            <div class="tl-conn">
-              <div class="tl-line"></div>
-              <span class="tl-arr">&#8594;</span>
-            </div>
-            <div class="tl-node">
-              <div class="tl-circle">03</div>
-              <div class="tl-lbl">Месяц</div>
+        <style>
+        .how-steps{display:flex;flex-direction:column;margin-top:8px}
+        .how-step{display:grid;grid-template-columns:58px 1fr;gap:24px;position:relative;padding-bottom:34px}
+        .how-step:last-child{padding-bottom:0}
+        .hs-rail{position:relative;display:flex;justify-content:center}
+        .hs-num{width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,.06);border:1.5px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-family:var(--fm);font-weight:700;font-size:18px;color:#fff;z-index:2;transition:background .3s,border-color .3s}
+        .how-step:hover .hs-num{background:var(--ink);border-color:var(--ink)}
+        .how-step:not(:last-child) .hs-rail::after{content:"";position:absolute;top:54px;bottom:-34px;left:50%;transform:translateX(-50%);width:1.5px;background:linear-gradient(rgba(155,134,255,.5),rgba(155,134,255,.08))}
+        .hs-month{font-family:var(--fm);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#9B86FF;margin-bottom:8px}
+        .hs-body h3{font-family:var(--fh);font-weight:700;font-size:clamp(19px,2vw,23px);color:#fff;margin-bottom:9px;letter-spacing:-.015em;line-height:1.15}
+        .hs-body p{font-size:15px;color:rgba(255,255,255,.72);line-height:1.6;max-width:540px}
+        @media(max-width:900px){.how-step{grid-template-columns:46px 1fr;gap:16px}.hs-num{width:44px;height:44px;font-size:15px}.how-step:not(:last-child) .hs-rail::after{top:44px}}
+        </style>
+        <div class="how-steps reveal">
+          <div class="how-step">
+            <div class="hs-rail"><span class="hs-num">01</span></div>
+            <div class="hs-body">
+              <div class="hs-month">Месяц 1 · Диагностика</div>
+              <h3>Смотрим, где вы сейчас</h3>
+              <p>Прогоняем 112 реальных покупательских сценариев через ChatGPT, Perplexity, GigaChat и Алису. Фиксируем точку отсчёта: видимость бренда, конкурентов в ответах, ошибки в фактах и источники, на которые опирается ИИ. Неверные факты сразу исправляем.</p>
             </div>
           </div>
-
-          <!-- Аккордеон — название этапа живёт здесь, не дублируется выше -->
-          <div class="tl-panels">
-
-            <div class="tl-panel n1 open">
-              <div class="tlp-top">
-                <span class="tlp-mob-num">01</span>
-                <div class="tlp-head">
-                  <h3>Диагностика</h3>
-                  <p class="tlp-hint">Аудит присутствия в 4 нейросетях</p>
-                </div>
-                <svg class="tlp-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
-              </div>
-              <div class="tlp-body">
-                <p>Запускаем 112 реальных покупательских сценариев через ChatGPT, Perplexity, GigaChat и Алису. Фиксируем точку отсчёта: видимость бренда, конкуренты в ответах, фактические ошибки и источники, на которые опирается ИИ. Исправляем неверные факты.</p>
-              </div>
+          <div class="how-step">
+            <div class="hs-rail"><span class="hs-num">02</span></div>
+            <div class="hs-body">
+              <div class="hs-month">Месяц 2 · Присутствие</div>
+              <h3>Заходим туда, откуда ИИ берёт ответы</h3>
+              <p>Создаём экспертный контент, который нейросети цитируют, и выстраиваем упоминания в источниках, на которые они опираются. Работаем с отзывами, маркетплейсами и профильными площадками.</p>
             </div>
-
-            <div class="tl-panel n2">
-              <div class="tlp-top">
-                <span class="tlp-mob-num">02</span>
-                <div class="tlp-head">
-                  <h3>Присутствие</h3>
-                  <p class="tlp-hint">Контент и площадки, которые читает ИИ</p>
-                </div>
-                <svg class="tlp-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
-              </div>
-              <div class="tlp-body">
-                <p>Создаём экспертный контент, который нейросети цитируют при ответе на покупательские запросы. Выстраиваем упоминания в источниках, на которые опирается ИИ. Работаем с отзывами, маркетплейсами и площадками.</p>
-              </div>
+          </div>
+          <div class="how-step">
+            <div class="hs-rail"><span class="hs-num">03</span></div>
+            <div class="hs-body">
+              <div class="hs-month">Месяц 3 · Замер и рост</div>
+              <h3>Показываем результат в цифрах</h3>
+              <p>Повторный аудит сравниваем с нулевой точкой — видно, как выросло присутствие. Не обещания, а измеренный результат. Усиливаем то, что сработало, и планируем следующие три месяца.</p>
             </div>
-
-            <div class="tl-panel n3">
-              <div class="tlp-top">
-                <span class="tlp-mob-num">03</span>
-                <div class="tlp-head">
-                  <h3>Замер и рост</h3>
-                  <p class="tlp-hint">Сравниваем с нулевой точкой в цифрах</p>
-                </div>
-                <svg class="tlp-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
-              </div>
-              <div class="tlp-body">
-                <p>Повторный аудит сравниваем с нулевой точкой — видно, как выросло присутствие бренда. Не обещания, а измеренный результат. Усиливаем то, что сработало, и принимаем решение на следующие три месяца.</p>
-              </div>
-            </div>
-
           </div>
         </div>
       </div>
@@ -619,6 +589,7 @@ footer{padding:50px 0 40px;border-top:1px solid var(--line);margin-top:30px}
     <div class="plat-cards">
 
       <div class="plat-card reveal">
+        <div class="plat-ic i-ink"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></div>
         <div class="plat-metric">
           <div class="plat-val-row">
             <span class="plat-val">112</span><span class="plat-suffix">&thinsp;сценариев</span>
@@ -628,6 +599,7 @@ footer{padding:50px 0 40px;border-top:1px solid var(--line);margin-top:30px}
       </div>
 
       <div class="plat-card reveal">
+        <div class="plat-ic i-ink"><svg viewBox="0 0 24 24"><path d="M4 19V5"/><path d="M4 19h16"/><path d="M8 16v-4M13 16V8M18 16v-6"/></svg></div>
         <div class="plat-metric">
           <span class="plat-val">Share&nbsp;of&nbsp;Voice<sup class="plat-sup">*</sup></span>
         </div>
@@ -635,6 +607,7 @@ footer{padding:50px 0 40px;border-top:1px solid var(--line);margin-top:30px}
       </div>
 
       <div class="plat-card reveal">
+        <div class="plat-ic i-amber"><svg viewBox="0 0 24 24"><path d="M12 3l9 16H3z"/><path d="M12 10v4M12 17h.01"/></svg></div>
         <div class="plat-metric">
           <span class="plat-val">15–52%<sup class="plat-sup">**</sup></span>
         </div>
@@ -642,6 +615,7 @@ footer{padding:50px 0 40px;border-top:1px solid var(--line);margin-top:30px}
       </div>
 
       <div class="plat-card reveal">
+        <div class="plat-ic i-green"><svg viewBox="0 0 24 24"><path d="M4 15l5-5 4 4 7-8"/><path d="M15 6h5v5"/></svg></div>
         <div class="plat-metric">
           <div class="plat-val-row">
             <span class="plat-val">3</span><span class="plat-suffix">&thinsp;месяца</span>
@@ -655,6 +629,123 @@ footer{padding:50px 0 40px;border-top:1px solid var(--line);margin-top:30px}
       * Share of Voice — метрика присутствия бренда в ответах нейросетей. Методика Creative Command<br>
       ** По данным Stanford HAI и сводных исследований 2023–2026, частота фактических ошибок LLM составляет 15–52%
     </p>
+  </div>
+</section>
+
+<!-- ─── REPORT SHOWCASE ───────────────────────── -->
+<style>
+#report .report-lead{max-width:640px;margin-bottom:40px}
+#report .report-gallery{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;padding:6px 0 26px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+#report .report-gallery::-webkit-scrollbar{display:none}
+#report .report-slide{flex:0 0 460px;max-width:88vw;scroll-snap-align:start}
+#report .report-shot{border-radius:18px;overflow:hidden;border:1px solid var(--line);box-shadow:0 12px 34px rgba(54,39,123,.1);background:var(--card);transition:transform .25s ease,box-shadow .25s ease}
+#report .report-slide:hover .report-shot{transform:translateY(-5px);box-shadow:0 20px 46px rgba(54,39,123,.16)}
+#report .report-shot img{width:100%;display:block}
+#report .report-cap{margin-top:14px;font-family:var(--fh);font-weight:700;font-size:15px;color:var(--ink-deep)}
+#report .report-cap span{display:block;font-family:var(--fb);font-weight:400;font-size:13px;color:var(--ink-deep);opacity:.6;margin-top:3px}
+#report .report-foot{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin-top:8px}
+#report .report-count{font-family:var(--fh);font-weight:700;font-size:15px;color:var(--ink)}
+#report .report-hint{font-size:13px;color:var(--ink-deep);opacity:.5}
+@media(max-width:760px){#report .report-slide{flex-basis:300px}}
+</style>
+<section class="blk" id="report">
+  <div class="wrap">
+    <div class="sec-head report-lead reveal">
+      <div class="eyebrow">Результат</div>
+      <h2>Как выглядит результат</h2>
+      <p>Каждый аудит оформлен в отчёт: доля голоса, присутствие по каждой нейросети, конкуренты и точность фактов. Ниже — реальные страницы одного из прогонов.</p>
+    </div>
+    <div class="report-gallery reveal">
+      <div class="report-slide">
+        <div class="report-shot"><img src="report-slide-cover.png" alt="Титульный слайд отчёта GEO-аудита" loading="lazy"></div>
+        <div class="report-cap">Титул<span>Бренд, дата и охват аудита</span></div>
+      </div>
+      <div class="report-slide">
+        <div class="report-shot"><img src="report-slide-sov.png" alt="Слайд Share of Voice" loading="lazy"></div>
+        <div class="report-cap">Доля голоса<span>Как часто ИИ называет вас сам</span></div>
+      </div>
+      <div class="report-slide">
+        <div class="report-shot"><img src="report-slide-providers.png" alt="Слайд присутствия по нейросетям" loading="lazy"></div>
+        <div class="report-cap">По нейросетям<span>Где вас видно, а где нет</span></div>
+      </div>
+      <div class="report-slide">
+        <div class="report-shot"><img src="report-slide-competitors.png" alt="Слайд конкурентов в ответах ИИ" loading="lazy"></div>
+        <div class="report-cap">Конкуренты<span>Кого ИИ советует вместо вас</span></div>
+      </div>
+      <div class="report-slide">
+        <div class="report-shot"><img src="report-slide-bpi.png" alt="Слайд Индекса присутствия бренда" loading="lazy"></div>
+        <div class="report-cap">Индекс присутствия<span>Сводная оценка от 0 до 100</span></div>
+      </div>
+    </div>
+    <div class="report-foot reveal">
+      <span class="report-count">Полный отчёт — 18 слайдов</span>
+      <span class="report-hint">Демонстрационный отчёт · бренд и конкуренты обезличены</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── DELIVERABLES ─────────────────────────── -->
+<style>
+#deliver .dlv-feature{display:grid;grid-template-columns:1.05fr .95fr;background:var(--dark);border-radius:26px;overflow:hidden;position:relative;margin-bottom:18px;min-height:300px}
+#deliver .dlv-feat-text{padding:52px 54px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:2}
+#deliver .dlv-fkick{font-family:var(--fh);font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--lav2,#9B86FF);color:#9B86FF;margin-bottom:16px}
+#deliver .dlv-feat-text h3{font-family:var(--fh);font-weight:800;font-size:clamp(26px,2.6vw,34px);color:#fff;letter-spacing:-.03em;line-height:1.08;margin-bottom:16px}
+#deliver .dlv-feat-text p{font-size:16.5px;color:rgba(255,255,255,.82);line-height:1.6;max-width:440px}
+#deliver .dlv-feat-visual{position:relative;overflow:hidden}
+#deliver .dlv-fblob{position:absolute;width:280px;height:280px;border-radius:50%;background:var(--elec);opacity:.4;filter:blur(50px);right:-40px;top:-60px}
+#deliver .dlv-feat-visual img{position:absolute;top:50%;left:44px;transform:translateY(-50%) rotate(-5deg);width:118%;border-radius:14px;box-shadow:0 40px 90px rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.1)}
+#deliver .dlv-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+#deliver .dlv{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:30px 28px;transition:transform .26s cubic-bezier(.16,1,.3,1),box-shadow .26s ease,border-color .26s;display:flex;flex-direction:column}
+#deliver .dlv:hover{transform:translateY(-5px);box-shadow:0 20px 48px rgba(33,26,59,.09);border-color:rgba(75,39,235,.24)}
+#deliver .dlv-ic{width:50px;height:50px;border-radius:15px;background:rgba(75,39,235,.09);display:flex;align-items:center;justify-content:center;margin-bottom:22px;transition:background .26s}
+#deliver .dlv:hover .dlv-ic{background:var(--ink)}
+#deliver .dlv-ic svg{width:24px;height:24px;stroke:var(--ink);fill:none;stroke-width:2.2;transition:stroke .26s}
+#deliver .dlv:hover .dlv-ic svg{stroke:#fff}
+#deliver .dlv-t{font-family:var(--fh);font-weight:700;font-size:17.5px;color:var(--ink-deep);margin-bottom:8px;line-height:1.22}
+#deliver .dlv-d{font-size:14.5px;color:var(--muted);line-height:1.5}
+@media(max-width:900px){#deliver .dlv-feature{grid-template-columns:1fr;min-height:0}#deliver .dlv-feat-visual{height:220px}#deliver .dlv-feat-visual img{left:50%;transform:translate(-50%,-40%) rotate(-4deg);width:78%}#deliver .dlv-cards{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){#deliver .dlv-cards{grid-template-columns:1fr}#deliver .dlv-feat-text{padding:36px 30px}}
+</style>
+<section class="blk" id="deliver">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div class="eyebrow">Состав аудита</div>
+      <h2>Что входит в аудит</h2>
+      <p>Не сырые данные, а готовая картина: где вы сейчас, кто впереди и что менять.</p>
+    </div>
+    <div class="dlv-feature reveal">
+      <div class="dlv-feat-text">
+        <div class="dlv-fkick">Главный результат</div>
+        <h3>Отчёт на 18 слайдов и живой разбор</h3>
+        <p>Доля голоса, конкуренты, источники и точность фактов — собрано в презентацию, которую не стыдно показать руководству. С разбором находок и планом действий.</p>
+      </div>
+      <div class="dlv-feat-visual">
+        <div class="dlv-fblob"></div>
+        <img src="report-slide-sov.png" alt="Страница отчёта GEO-аудита" loading="lazy">
+      </div>
+    </div>
+    <div class="dlv-cards">
+      <div class="dlv reveal">
+        <div class="dlv-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v4l3 2"/></svg></div>
+        <div class="dlv-t">Аудит в 4 нейросетях</div>
+        <div class="dlv-d">Perplexity, GigaChat, YandexGPT и ChatGPT — считаем по каждой отдельно.</div>
+      </div>
+      <div class="dlv reveal">
+        <div class="dlv-ic"><svg viewBox="0 0 24 24"><path d="M4 15l5-5 4 4 7-8"/><path d="M4 20h16"/></svg></div>
+        <div class="dlv-t">Доля голоса и Индекс присутствия</div>
+        <div class="dlv-d">Сводная оценка видимости бренда в нейросетях от 0 до 100.</div>
+      </div>
+      <div class="dlv reveal">
+        <div class="dlv-ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><circle cx="17" cy="10" r="2.6"/><path d="M4 19c0-3 2.5-5 5-5s5 2 5 5M14 19c0-2 1.5-3.5 3-3.5s3 1.5 3 3.5"/></svg></div>
+        <div class="dlv-t">Конкуренты и источники</div>
+        <div class="dlv-d">Кого ИИ советует вместо вас и на какие площадки он опирается.</div>
+      </div>
+      <div class="dlv reveal">
+        <div class="dlv-ic"><svg viewBox="0 0 24 24"><path d="M12 3l8 3v5c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <div class="dlv-t">Проверка фактов и план роста</div>
+        <div class="dlv-d">Противоречия в ответах ИИ и конкретные шаги, что делать дальше.</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -722,7 +813,49 @@ footer{padding:50px 0 40px;border-top:1px solid var(--line);margin-top:30px}
   </div>
 </section>
 
+<!-- ─── GUARANTEE ────────────────────────────── -->
+<style>
+#guarantee{padding:20px 0 92px}
+#guarantee .grt{position:relative;overflow:hidden;background:var(--dark);border-radius:28px;padding:60px 64px;display:grid;grid-template-columns:1fr 250px;gap:40px;align-items:center}
+#guarantee .grt-glow{position:absolute;width:420px;height:420px;border-radius:50%;background:var(--elec);opacity:.28;filter:blur(90px);right:-80px;top:-140px;pointer-events:none}
+#guarantee .grt-kick{font-family:var(--fh);font-weight:700;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#9B86FF;margin-bottom:18px;position:relative;z-index:2}
+#guarantee .grt h3{font-family:var(--fh);font-weight:800;font-size:clamp(26px,3.1vw,40px);color:#fff;line-height:1.08;letter-spacing:-.03em;margin-bottom:20px;max-width:720px;position:relative;z-index:2}
+#guarantee .grt p{font-size:17px;color:rgba(255,255,255,.78);line-height:1.6;max-width:600px;margin-bottom:26px;position:relative;z-index:2}
+#guarantee .grt-points{display:flex;gap:12px;flex-wrap:wrap;position:relative;z-index:2}
+#guarantee .grt-pt{display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:100px;padding:10px 18px 10px 14px;font-size:14px;font-weight:500;color:#fff}
+#guarantee .grt-pt svg{width:16px;height:16px;stroke:#9B86FF;fill:none;stroke-width:2.6;flex-shrink:0}
+#guarantee .grt-visual{position:relative;z-index:2;justify-self:end}
+#guarantee .grt-obj{width:230px;height:230px;object-fit:contain;display:block;animation:mascot-float 4.5s ease-in-out infinite;filter:drop-shadow(0 24px 50px rgba(0,0,0,.45))}
+@media(max-width:820px){#guarantee .grt{grid-template-columns:1fr;padding:44px 34px;gap:24px}#guarantee .grt-visual{justify-self:start}#guarantee .grt-obj{width:150px;height:150px}}
+</style>
+<section class="blk" id="guarantee">
+  <div class="wrap">
+    <div class="grt reveal">
+      <div class="grt-glow"></div>
+      <div class="grt-main">
+        <div class="grt-kick">Гарантия</div>
+        <h3>Не найдём точек роста — вернём деньги за аудит</h3>
+        <p>Никакого топ‑1 в ChatGPT за неделю мы не обещаем: алгоритмы нейросетей постоянно меняются, и клясться в этом было бы нечестно. Но одно гарантируем твёрдо — если аудит не покажет, где вы теряете клиентов и что с этим делать, вы не платите ни рубля.</p>
+        <div class="grt-points">
+          <span class="grt-pt"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg>Прозрачная методика</span>
+          <span class="grt-pt"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg>Без чёрного ящика</span>
+          <span class="grt-pt"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg>Отчёт остаётся у вас</span>
+        </div>
+      </div>
+      <div class="grt-visual"><img src="guarantee.png" class="grt-obj" alt="" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
 <!-- ─── CASE ──────────────────────────────────── -->
+<style>
+#case .cm-h3{font-family:var(--fh);font-weight:800;font-size:20px;color:var(--ink-deep);line-height:1.18;letter-spacing:-.015em;margin:16px 0 2px}
+#case .case-mini .case-story{margin:16px 0 4px}
+#case .case-story{margin:22px 0 6px;display:flex;flex-direction:column;gap:18px}
+#case .cs-beat p{font-size:15px;color:var(--muted);line-height:1.55;margin:7px 0 0}
+#case .cs-lbl{display:inline-block;font-family:var(--fh);font-weight:700;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink);background:rgba(75,39,235,.09);padding:5px 12px;border-radius:100px}
+#case .cs-lbl.cs-win{color:#fff;background:var(--ink)}
+</style>
 <section class="blk" id="case">
   <div class="wrap">
     <div class="sec-head reveal" style="margin-bottom:36px">
@@ -733,9 +866,22 @@ footer{padding:50px 0 40px;border-top:1px solid var(--line);margin-top:30px}
 
       <div class="case-card-text">
         <span class="case-tag">Уходовая косметика</span>
-        <h3>Что показал аудит косметического бренда</h3>
-        <p>Бренд уходовой косметики. На старте нейросети называли его лишь в 1 ответе из 12 — почти всегда советовали конкурентов. Платформа нашла 7 фактических ошибок о составе и стране производства. За 3 месяца работы присутствие выросло втрое, а ошибки в ответах ИИ исчезли.</p>
-        <p class="case-small-note">Пример на основе тестовых прогонов платформы</p>
+        <h3>Из невидимого бренда — в рекомендации ИИ за 3 месяца</h3>
+        <div class="case-story">
+          <div class="cs-beat">
+            <span class="cs-lbl">Было</span>
+            <p>Share of Voice 12%: из 12 запросов бренд всплывал лишь в одном, в остальных ИИ советовал конкурентов. В 7 ответах путал состав и страну производства.</p>
+          </div>
+          <div class="cs-beat">
+            <span class="cs-lbl">Что сделали</span>
+            <p>Исправили карточки бренда в 4 каталогах и справочниках, добавили в 2 отраслевых обзора и подготовили экспертные материалы под категорийные запросы — источники, которые ИИ цитирует чаще всего.</p>
+          </div>
+          <div class="cs-beat">
+            <span class="cs-lbl cs-win">Стало за 3 месяца</span>
+            <p>Share of Voice вырос с 12% до 38%, бренд попадает в 3 ответа из 4, фактических ошибок в нейросетях — ноль.</p>
+          </div>
+        </div>
+        <p class="case-small-note">Демонстрационный кейс · бренд обезличен</p>
       </div>
 
       <!-- Флаффи-графики: пончик главный, стрелка + индикатор снизу -->
@@ -764,6 +910,149 @@ footer{padding:50px 0 40px;border-top:1px solid var(--line);margin-top:30px}
 
       </div>
 
+    </div>
+
+    <style>
+    #case .case-more{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:22px}
+    #case .case-mini{position:relative;overflow:hidden;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:30px 32px 28px;transition:transform .22s ease,box-shadow .22s ease}
+    #case .case-mini:hover{transform:translateY(-4px);box-shadow:0 16px 44px rgba(75,39,235,.12)}
+    #case .cm-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;min-height:70px}
+    #case .cm-obj{width:104px;height:104px;object-fit:contain;margin:-16px -14px -22px 0;flex-shrink:0;animation:mascot-float 4.2s ease-in-out infinite}
+    #case .cm-stats{display:flex;gap:28px;flex-wrap:wrap;margin:8px 0 20px}
+    #case .cm-stat{display:flex;flex-direction:column;gap:3px}
+    #case .cm-num{font-family:var(--fh);font-weight:900;font-size:36px;color:var(--ink);letter-spacing:-.03em;line-height:1}
+    #case .cm-num.grass{color:var(--grass)}
+    #case .cm-lbl{font-size:12.5px;color:var(--ink-deep);opacity:.6;line-height:1.25}
+    #case .cm-desc{font-size:14.5px;color:var(--ink-deep);opacity:.82;line-height:1.5;border-top:1px solid var(--line);padding-top:16px;margin:0}
+    #case .case-more-note{font-size:12px;font-style:italic;color:var(--ink-deep);opacity:.42;margin-top:18px}
+    @media(max-width:760px){#case .case-more{grid-template-columns:1fr}#case .cm-obj{width:84px;height:84px}}
+    </style>
+    <div class="case-more reveal">
+      <div class="case-mini">
+        <div class="cm-top">
+          <span class="case-tag">Единоборства · СПб</span>
+          <img src="glove.png" class="cm-obj" alt="" loading="lazy">
+        </div>
+        <h3 class="cm-h3">Обошли двух конкурентов в ответах ИИ</h3>
+        <div class="case-story">
+          <div class="cs-beat"><span class="cs-lbl">Было</span><p>Доля голоса 22%: из 18 запросов бренд всплывал в 8, но по органике впереди были три конкурента.</p></div>
+          <div class="cs-beat"><span class="cs-lbl">Что сделали</span><p>Усилили присутствие в категорийных запросах, добавили клуб в 2ГИС и Zoon, поработали с отзывами и подборками в нише.</p></div>
+          <div class="cs-beat"><span class="cs-lbl cs-win">Стало за 3 месяца</span><p>Доля голоса выросла до 41%, обошли двух конкурентов, ошибок в фактах — ноль.</p></div>
+        </div>
+      </div>
+      <div class="case-mini">
+        <div class="cm-top">
+          <span class="case-tag">Двери · производство</span>
+          <img src="door.png" class="cm-obj" alt="" loading="lazy">
+        </div>
+        <h3 class="cm-h3">Из невидимки — в ответы нейросетей</h3>
+        <div class="case-story">
+          <div class="cs-beat"><span class="cs-lbl">Было</span><p>Почти не виден: доля голоса 1.1%, одно спонтанное упоминание на 23 запроса. В двух ответах ИИ путал факты о компании.</p></div>
+          <div class="cs-beat"><span class="cs-lbl">Что сделали</span><p>Исправили данные в каталогах и справочниках, добавили бренд в отраслевые обзоры и на площадки, которые цитирует ИИ.</p></div>
+          <div class="cs-beat"><span class="cs-lbl cs-win">Стало за 3 месяца</span><p>Доля голоса выросла до 12%, противоречия в ответах устранены, бренд попадает в категорийные ответы.</p></div>
+        </div>
+      </div>
+    </div>
+    <p class="case-more-note">Стартовые аудиты · бренды обезличены</p>
+  </div>
+</section>
+
+<!-- ─── GEO vs SEO ───────────────────────────── -->
+<style>
+#vs .vs-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:8px}
+#vs .vs-card{border-radius:var(--r);padding:34px 34px 30px}
+#vs .vs-seo{background:var(--card);border:1px solid var(--line)}
+#vs .vs-geo{background:var(--dark);position:relative;overflow:hidden}
+#vs .vs-geo .vs-blob{position:absolute;width:170px;height:170px;border-radius:50%;background:var(--elec);opacity:.32;filter:blur(16px);right:-40px;top:-50px}
+#vs .vs-kick{font-family:var(--fh);font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px}
+#vs .vs-seo .vs-kick{color:var(--ink-deep);opacity:.5}
+#vs .vs-geo .vs-kick{color:var(--lav,#9B86FF);color:#9B86FF}
+#vs .vs-h{font-family:var(--fh);font-weight:800;font-size:24px;letter-spacing:-.02em;margin-bottom:22px}
+#vs .vs-seo .vs-h{color:var(--ink-deep)}
+#vs .vs-geo .vs-h{color:#fff}
+#vs .vs-row{display:flex;gap:12px;align-items:flex-start;padding:13px 0;position:relative}
+#vs .vs-row + .vs-row{border-top:1px solid var(--line)}
+#vs .vs-geo .vs-row + .vs-row{border-top:1px solid rgba(255,255,255,.1)}
+#vs .vs-dot{width:22px;height:22px;border-radius:7px;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px}
+#vs .vs-seo .vs-dot{background:rgba(54,39,123,.1)}
+#vs .vs-geo .vs-dot{background:var(--ink)}
+#vs .vs-dot svg{width:13px;height:13px;stroke-width:2.6;fill:none}
+#vs .vs-seo .vs-dot svg{stroke:var(--ink-deep);opacity:.5}
+#vs .vs-geo .vs-dot svg{stroke:#fff}
+#vs .vs-txt{font-size:15px;line-height:1.45}
+#vs .vs-seo .vs-txt{color:var(--ink-deep);opacity:.78}
+#vs .vs-geo .vs-txt{color:rgba(255,255,255,.9)}
+@media(max-width:760px){#vs .vs-grid{grid-template-columns:1fr}}
+</style>
+<section class="blk" id="vs">
+  <div class="wrap">
+    <div class="sec-head reveal" style="margin-bottom:34px">
+      <div class="eyebrow">GEO против SEO</div>
+      <h2>Это не SEO. Это следующий слой</h2>
+      <p>SEO приводит человека на сайт из списка ссылок. GEO решает, назовёт ли ИИ ваш бренд ещё до того, как список вообще появится.</p>
+    </div>
+    <div class="vs-grid">
+      <div class="vs-card vs-seo reveal">
+        <div class="vs-kick">Классический поиск · SEO</div>
+        <div class="vs-h">Борьба за позицию в списке</div>
+        <div class="vs-row"><span class="vs-dot"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg></span><span class="vs-txt">Человек видит список ссылок и выбирает сам</span></div>
+        <div class="vs-row"><span class="vs-dot"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg></span><span class="vs-txt">Вы оптимизируете страницы под ключевые слова</span></div>
+        <div class="vs-row"><span class="vs-dot"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg></span><span class="vs-txt">Успех — трафик на сайт и место в топ-10</span></div>
+      </div>
+      <div class="vs-card vs-geo reveal">
+        <div class="vs-blob"></div>
+        <div class="vs-kick">Ответ нейросети · GEO</div>
+        <div class="vs-h">Борьба за упоминание в ответе</div>
+        <div class="vs-row"><span class="vs-dot"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span><span class="vs-txt">ИИ называет один-два бренда сразу, без списка</span></div>
+        <div class="vs-row"><span class="vs-dot"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span><span class="vs-txt">Вы работаете с источниками, на которые опирается ИИ</span></div>
+        <div class="vs-row"><span class="vs-dot"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg></span><span class="vs-txt">Успех — вас рекомендуют до перехода на сайт</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FAQ ──────────────────────────────────── -->
+<style>
+#faq .faq-list{max-width:none;margin-top:8px;border-top:1px solid var(--line)}
+#faq details{border-bottom:1px solid var(--line);background:transparent;overflow:hidden}
+#faq summary{list-style:none;cursor:pointer;padding:30px 8px;display:flex;justify-content:space-between;align-items:center;gap:16px;font-family:var(--fh);font-weight:700;font-size:clamp(19px,2vw,24px);color:var(--ink-deep);letter-spacing:-.01em;transition:color .2s}
+#faq summary:hover{color:var(--ink)}
+#faq summary::-webkit-details-marker{display:none}
+#faq .faq-chev{width:26px;height:26px;flex-shrink:0;transition:transform .3s cubic-bezier(.16,1,.3,1);stroke:var(--ink);fill:none;stroke-width:2.4}
+#faq details[open] .faq-chev{transform:rotate(180deg)}
+#faq .faq-a{padding:0 8px 32px;font-size:17px;color:var(--muted);line-height:1.65;max-width:820px}
+</style>
+<section class="blk" id="faq">
+  <div class="wrap">
+    <div class="sec-head reveal" style="margin-bottom:30px">
+      <div class="eyebrow">Вопросы</div>
+      <h2>Частые вопросы</h2>
+    </div>
+    <div class="faq-list reveal">
+      <details>
+        <summary>Чем GEO отличается от SEO?<svg class="faq-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="faq-a">SEO борется за позицию сайта в списке ссылок. GEO работает с ответом нейросети, где списка нет: ИИ называет бренд сразу. Мы измеряем и растим именно упоминание бренда в этих ответах. Часть работы пересекается с SEO, но цель и метрики другие.</div>
+      </details>
+      <details>
+        <summary>Можно ли внедрить рекомендации самим?<svg class="faq-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="faq-a">Да. Отчёт остаётся у вас навсегда и написан так, что задачи можно передать своей команде или подрядчику. Если хотите — берём внедрение и ведение на себя в рамках месячных тарифов.</div>
+      </details>
+      <details>
+        <summary>Когда будет результат?<svg class="faq-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="faq-a">Аудит показывает точку отсчёта сразу. Заметные изменения в ответах ИИ обычно проявляются за 2–3 месяца: нейросетям нужно время, чтобы переиндексировать источники. Поэтому минимальный срок ведения — 3 месяца, с замером до и после.</div>
+      </details>
+      <details>
+        <summary>Какие нейросети вы проверяете?<svg class="faq-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="faq-a">Perplexity, GigaChat, YandexGPT и ChatGPT. Считаем присутствие по каждой отдельно и сводим в общую долю голоса — так видно, где вас уже знают, а где нет.</div>
+      </details>
+      <details>
+        <summary>А если бренд новый или нишевый?<svg class="faq-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="faq-a">Это как раз частый случай: нейросети либо молчат о бренде, либо путают факты. Аудит покажет, что именно ИИ знает и на какие источники опирается, — с этого и начинается работа над присутствием.</div>
+      </details>
+      <details>
+        <summary>Вы гарантируете попадание в ответы ИИ?<svg class="faq-chev" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="faq-a">Нет — и никто честно не может: алгоритмы нейросетей закрыты и меняются. Мы гарантируем прозрачную методику, измеримую динамику до и после, и работу с источниками, которые реально влияют на ответы. Если аудит не найдёт точек роста — вернём его стоимость.</div>
+      </details>
     </div>
   </div>
 </section>
@@ -796,9 +1085,52 @@ footer{padding:50px 0 40px;border-top:1px solid var(--line);margin-top:30px}
         <a href="#contact">Контакт</a>
       </div>
     </div>
-    <p class="foot-copy">GEO — направление агентства Creative Command. Продвижение брендов в ответах генеративных нейросетей.</p>
+    <div class="foot-legal">
+      <div class="foot-req">
+        <span class="foot-req-name">ООО «Криэйтив Комманд»</span>
+        <span>ИНН 7816761274 · ОГРН 1257800117409 · КПП 781601001</span>
+        <span>192236, г. Санкт-Петербург, ул. Софийская, д. 17, литера А, помещ. 8-Н, офис 330В</span>
+        <a href="mailto:hello@creative-command.ru">hello@creative-command.ru</a>
+      </div>
+      <nav class="foot-legal-links" aria-label="Юридическая информация">
+        <a href="/legal/privacy.html">Политика обработки данных</a>
+        <a href="/legal/consent.html">Согласие на обработку</a>
+        <a href="/legal/cookies.html">Cookie</a>
+        <a href="/legal/terms.html">Пользовательское соглашение</a>
+      </nav>
+    </div>
+    <p class="foot-copy">GEO — направление агентства Creative Command. Продвижение брендов в ответах генеративных нейросетей. Информация на сайте не является публичной офертой; включение бренда в конкретный ответ нейросети не гарантируется. © 2026 Creative Command.</p>
   </div>
 </footer>
+
+<!-- Cookie-баннер: аналитика не грузится до явного согласия -->
+<div id="cookie-banner" class="cookie-banner" role="dialog" aria-live="polite" aria-label="Настройки cookie" hidden>
+  <p>Мы используем обязательные cookie для работы сайта и, с вашего согласия, аналитические cookie собственной платформы. <a href="/legal/cookies.html">Подробнее</a></p>
+  <div class="cookie-actions">
+    <button type="button" class="ck-accept" data-cookie-choice="analytics">Разрешить аналитику</button>
+    <button type="button" class="ck-essential" data-cookie-choice="essential">Только необходимые</button>
+  </div>
+</div>
+<script>
+(() => {
+  const key = 'geo_cookie_choice_v1';
+  const banner = document.getElementById('cookie-banner');
+  const choice = localStorage.getItem(key);
+  function loadAnalytics(){
+    // Подключение собственной аналитики — только отсюда, после согласия.
+    // До вызова этой функции аналитический скрипт грузиться не должен.
+  }
+  if (choice === 'analytics') loadAnalytics();
+  if (!choice) banner.hidden = false;
+  banner.addEventListener('click', (e) => {
+    const value = e.target && e.target.dataset ? e.target.dataset.cookieChoice : null;
+    if (!value) return;
+    localStorage.setItem(key, value);
+    banner.hidden = true;
+    if (value === 'analytics') loadAnalytics();
+  });
+})();
+</script>
 
 <script>
 const io = new IntersectionObserver(

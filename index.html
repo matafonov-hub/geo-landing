@@ -46,8 +46,8 @@ nav{position:sticky;top:0;z-index:50;background:rgba(245,239,221,.9);backdrop-fi
 .logo-cmd{white-space:nowrap}
 .logo-dot{color:#4B27EB}
 .nav-links{display:flex;gap:30px;align-items:center}
-.nav-links a:not(.btn){font-size:14px;color:var(--ink-deep);text-decoration:none;font-weight:500;opacity:.75;transition:opacity .2s}
-.nav-links a:not(.btn):hover{opacity:1}
+.nav-links a:not(.btn){font-size:15px;color:var(--ink-deep);text-decoration:none;font-weight:700;opacity:1;transition:color .2s}
+.nav-links a:not(.btn):hover{color:var(--ink)}
 .btn{font-family:var(--fh);font-weight:700;font-size:15px;background:#4B27EB;color:#fff;opacity:1;border:none;padding:13px 26px;border-radius:100px;cursor:pointer;text-decoration:none;display:inline-block;transition:transform .2s,box-shadow .2s,background .2s}
 .btn:hover{background:#3b1fd6;transform:translateY(-2px);box-shadow:0 10px 30px rgba(75,39,235,.35)}
 .btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink);font-weight:600}
@@ -457,9 +457,9 @@ footer{padding:50px 0 40px;border-top:1px solid var(--line);margin-top:30px}
 <!-- ─── NAV ─────────────────────────────────── -->
 <nav>
   <div class="wrap nav-in">
-    <div class="logo"><span>creative</span><span class="logo-cmd">command<span class="logo-dot">.</span></span></div>
+    <a class="logo" href="/" aria-label="На главную"><span>creative</span><span class="logo-cmd">command<span class="logo-dot">.</span></span></a>
     <div class="nav-links">
-      <a href="#problem">Проблема</a>
+      <a href="#problem">Что происходит</a>
       <a href="#how">Как работаем</a>
       <a href="#tariffs">Тарифы</a>
       <a href="#contact" class="btn">Проверить бренд</a>
@@ -768,7 +768,7 @@ footer{padding:50px 0 40px;border-top:1px solid var(--line);margin-top:30px}
     </div>
     <div class="report-foot reveal">
       <span class="report-count">Полный отчёт — 18 слайдов</span>
-      <span class="report-hint">Демонстрационный отчёт · бренд и конкуренты обезличены</span>
+      <span class="report-hint">Пример итогового отчёта · данные бренда обезличены по NDA</span>
     </div>
   </div>
 </section>
@@ -846,6 +846,44 @@ footer{padding:50px 0 40px;border-top:1px solid var(--line);margin-top:30px}
       <h2>Выберите глубину</h2>
       <p>Начинаем с аудита, дальше — ведение на три месяца. Финальная стоимость зависит от ниши и объёма; на сайте — стартовые вилки.</p>
     </div>
+    <style>
+    .tar-audit{display:grid;grid-template-columns:1.55fr 1fr;gap:38px;align-items:center;background:linear-gradient(155deg,#2E2168,#191139);color:#fff;border-radius:24px;padding:42px 46px;margin-bottom:26px;position:relative;overflow:hidden}
+    .tar-audit::before{content:"";position:absolute;top:-90px;right:-60px;width:300px;height:300px;background:radial-gradient(circle,rgba(107,79,255,.55),transparent 66%);opacity:.55;pointer-events:none}
+    .tar-audit>*{position:relative;z-index:1}
+    .ta-badge{display:inline-block;background:var(--grass);color:#fff;font-family:var(--fh);font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;padding:5px 13px;border-radius:99px;margin-bottom:15px}
+    .ta-left h3{font-family:var(--fh);font-weight:800;font-size:clamp(24px,2.6vw,32px);margin:0 0 10px;letter-spacing:-.02em;color:#fff;line-height:1.1}
+    .ta-desc{color:rgba(255,255,255,.75);font-size:16px;line-height:1.5;margin:0 0 20px}
+    .ta-list{list-style:none;display:grid;gap:10px;padding:0;margin:0}
+    .ta-list li{font-size:14.5px;color:rgba(255,255,255,.92);line-height:1.35;padding-left:26px;position:relative}
+    .ta-list li::before{content:"✓";position:absolute;left:0;color:#7BE06F;font-weight:800}
+    .ta-right{text-align:center;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:30px 26px}
+    .ta-price{font-family:var(--fh);font-weight:900;font-size:42px;color:#fff;letter-spacing:-.03em;line-height:1}
+    .ta-per{color:rgba(255,255,255,.6);font-size:13.5px;margin:9px 0 20px}
+    .tar-audit .ta-btn{background:#fff;color:var(--ink);width:100%;text-align:center;justify-content:center}
+    .tar-audit .ta-btn:hover{background:#f0ecff}
+    .ta-note{color:rgba(255,255,255,.62);font-size:12.5px;margin:15px 0 0;line-height:1.4}
+    @media(max-width:760px){.tar-audit{grid-template-columns:1fr;padding:30px 24px;gap:24px}}
+    </style>
+    <div class="tar-audit reveal">
+      <div class="ta-left">
+        <span class="ta-badge">Начните отсюда</span>
+        <h3>Разовый GEO-аудит</h3>
+        <p class="ta-desc">Полная картина за 5 дней: в каких запросах нейросети советуют вас, кого — вместо вас, где ИИ ошибается о бренде, и что с этим делать.</p>
+        <ul class="ta-list">
+          <li>4 нейросети: ChatGPT, Perplexity, GigaChat, Алиса</li>
+          <li>Метрики Share of Voice и BPI + анализ конкурентов</li>
+          <li>Карта источников, которые цитирует ИИ, и план роста на 3 месяца</li>
+          <li>Разбор результатов на созвоне</li>
+        </ul>
+      </div>
+      <div class="ta-right">
+        <div class="ta-price">55 000 ₽</div>
+        <div class="ta-per">разово · 5 рабочих дней</div>
+        <a href="https://t.me/geo_cc_bot?start=site" class="btn ta-btn" target="_blank" rel="noopener">Заказать аудит</a>
+        <p class="ta-note">Стоимость засчитываем в первый месяц ведения, если продолжаете с нами</p>
+      </div>
+    </div>
+
     <div class="tar-grid">
 
       <div class="tar reveal">
@@ -948,7 +986,7 @@ footer{padding:50px 0 40px;border-top:1px solid var(--line);margin-top:30px}
 <section class="blk" id="case">
   <div class="wrap">
     <div class="sec-head reveal" style="margin-bottom:36px">
-      <div class="eyebrow">Кейс</div>
+      <div class="eyebrow">Кейсы</div>
       <h2>Что происходит на практике</h2>
     </div>
     <div class="case-card reveal">
@@ -970,7 +1008,7 @@ footer{padding:50px 0 40px;border-top:1px solid var(--line);margin-top:30px}
             <p>Share of Voice вырос с 12% до 38%, бренд попадает в 3 ответа из 4, фактических ошибок в нейросетях — ноль.</p>
           </div>
         </div>
-        <p class="case-small-note">Демонстрационный кейс · бренд обезличен</p>
+        <p class="case-small-note">Уходовая косметика · по договору NDA название бренда не раскрывается</p>
       </div>
 
       <!-- Флаффи-графики: пончик главный, стрелка + индикатор снизу -->
@@ -1042,7 +1080,7 @@ footer{padding:50px 0 40px;border-top:1px solid var(--line);margin-top:30px}
         </div>
       </div>
     </div>
-    <p class="case-more-note">Стартовые аудиты · бренды обезличены</p>
+    <p class="case-more-note">Названия брендов не раскрываются по условиям NDA</p>
   </div>
 </section>
 

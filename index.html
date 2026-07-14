@@ -360,6 +360,95 @@ footer{padding:50px 0 40px;border-top:1px solid var(--line);margin-top:30px}
   .cta-mascot-wrap{animation:none;transform:translateY(0)}
   .plat-mock-dot{animation:none}
   .furry-lost-img{animation:none}
+  .af-spinner{animation:none}
+  .af-step{animation:none}
+}
+
+/* ─── AUDIT FORM (пошаговый экспресс) ─── */
+.af{position:relative;background:var(--card);border:1px solid var(--line);border-radius:26px;overflow:hidden;box-shadow:0 40px 90px rgba(33,26,59,.13)}
+.af-split{display:grid;grid-template-columns:.9fr 1.1fr}
+.af-split[hidden]{display:none}
+/* левая тёмная панель */
+.af-aside{position:relative;background:linear-gradient(165deg,#2E2168,#191139);color:#fff;padding:56px 46px;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
+.af-aside::before{content:"";position:absolute;top:-90px;right:-70px;width:300px;height:300px;background:radial-gradient(circle,rgba(107,79,255,.55),transparent 66%);opacity:.6;pointer-events:none}
+.af-aside::after{content:"";position:absolute;bottom:-110px;left:-80px;width:260px;height:260px;background:radial-gradient(circle,rgba(75,39,235,.4),transparent 68%);opacity:.5;pointer-events:none}
+.af-aside>*{position:relative}
+.af-aside-eye{font-family:var(--fh);font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#B7A8FF;margin-bottom:18px}
+.af-aside h2{font-family:var(--fh);font-weight:800;font-size:clamp(25px,2.5vw,33px);line-height:1.14;letter-spacing:-.025em;margin-bottom:16px;color:#fff}
+.af-aside-sub{color:rgba(255,255,255,.74);font-size:16px;line-height:1.55}
+.af-benes{list-style:none;margin-top:34px;display:flex;flex-direction:column;gap:15px}
+.af-benes li{display:flex;gap:12px;align-items:flex-start;font-size:14.5px;color:rgba(255,255,255,.92);line-height:1.4}
+.af-benes svg{width:20px;height:20px;flex:none;margin-top:1px;stroke:#7BE06F;stroke-width:2.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+/* правая панель с формой */
+.af-main{padding:52px 48px;display:flex;flex-direction:column;justify-content:center;background:#fff}
+.af-prog{margin:0 0 28px}
+.af-prog-bar{height:6px;border-radius:99px;background:rgba(33,26,59,.09);overflow:hidden}
+.af-prog-bar span{display:block;height:100%;width:25%;border-radius:99px;background:linear-gradient(90deg,var(--ink),var(--elec));transition:width .45s cubic-bezier(.16,1,.3,1)}
+.af-prog-txt{text-align:center;font-family:'JetBrains Mono',monospace;font-size:11.5px;letter-spacing:.08em;color:var(--muted);margin-top:11px;text-transform:uppercase}
+.af-prog-txt b{color:var(--ink);font-weight:700}
+.af-form{width:100%}
+.af-step{display:none;animation:afIn .42s cubic-bezier(.16,1,.3,1)}
+.af-step.is-active{display:block}
+@keyframes afIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.af-q{display:block;font-family:var(--fh);font-weight:700;font-size:23px;color:var(--ink-deep);letter-spacing:-.012em;line-height:1.2}
+.af-opt{font-weight:500;color:var(--muted);font-size:15px}
+.af-hint{color:var(--muted);font-size:14.5px;margin:7px 0 18px;line-height:1.5}
+.af-input{width:100%;font-family:var(--fb);font-size:17px;color:var(--text);background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:15px 18px;transition:border-color .2s,box-shadow .2s;outline:none}
+.af-input::placeholder{color:#b3adc4}
+.af-input:focus{border-color:var(--ink);box-shadow:0 0 0 4px rgba(75,39,235,.12)}
+.af-input.af-err{border-color:#d4442f;box-shadow:0 0 0 4px rgba(212,68,47,.1)}
+.af-consent{display:flex;gap:10px;align-items:flex-start;margin-top:18px;font-size:13.5px;color:var(--muted);line-height:1.5;cursor:pointer}
+.af-consent input{margin-top:2px;width:16px;height:16px;accent-color:var(--ink);flex:none}
+.af-consent a{color:var(--ink)}
+.af-consent.af-err{color:#d4442f}
+.af-nav{display:flex;gap:8px;margin-top:24px;align-items:center}
+.af-btn{font-family:var(--fh);font-weight:700;font-size:16px;color:#fff;background:var(--ink);border:none;border-radius:13px;padding:14px 26px;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 10px 26px rgba(75,39,235,.22)}
+.af-btn:hover{transform:translateY(-2px);box-shadow:0 16px 36px rgba(75,39,235,.3)}
+.af-next,.af-submit{margin-left:auto}
+.af-btn-ghost{font-family:var(--fh);font-weight:600;font-size:15px;color:var(--ink-deep);background:transparent;border:none;padding:14px 6px;cursor:pointer;transition:color .2s}
+.af-btn-ghost:hover{color:var(--ink)}
+/* loading */
+.af-loading{text-align:center;padding:64px 20px 56px}
+.af-spinner{width:52px;height:52px;margin:0 auto 24px;border-radius:50%;border:4px solid rgba(75,39,235,.16);border-top-color:var(--ink);animation:afSpin .9s linear infinite}
+@keyframes afSpin{to{transform:rotate(360deg)}}
+.af-load-txt{font-family:var(--fh);font-weight:600;font-size:18px;color:var(--ink-deep);transition:opacity .3s}
+/* result / sent */
+.af-result,.af-sent{position:relative;text-align:center;max-width:600px;margin:0 auto;padding:60px 40px;animation:afIn .5s}
+.af-result::before{content:"";position:absolute;top:24px;left:50%;transform:translateX(-50%);width:360px;height:220px;max-width:90%;background:radial-gradient(ellipse,rgba(107,79,255,.16),transparent 70%);pointer-events:none;z-index:0}
+.af-result>*{position:relative;z-index:1}
+.af-result .eyebrow{display:flex;justify-content:center}
+.af-res-badge{width:62px;height:62px;margin:0 auto 20px;border-radius:17px;background:linear-gradient(150deg,var(--ink),var(--elec));display:flex;align-items:center;justify-content:center;box-shadow:0 14px 30px rgba(75,39,235,.32)}
+.af-res-badge svg{width:30px;height:30px;stroke:#fff;stroke-width:1.7;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.af-res-h{font-family:var(--fh);font-weight:800;font-size:clamp(23px,3vw,32px);color:var(--ink-deep);letter-spacing:-.02em;margin:12px 0 28px;line-height:1.15}
+.af-res-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:26px}
+.af-res-stat{background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px 22px;box-shadow:0 6px 20px rgba(33,26,59,.06)}
+.af-res-bad{background:var(--dark);border-color:transparent}
+.af-res-num{font-family:var(--fh);font-weight:900;font-size:52px;line-height:1;color:var(--ink);letter-spacing:-.03em}
+.af-res-bad .af-res-num{color:#fff}
+.af-res-den{font-size:26px;color:var(--muted);font-weight:700}
+.af-res-bad .af-res-den{color:rgba(255,255,255,.5)}
+.af-res-lbl{font-size:14px;color:var(--muted);margin-top:12px;line-height:1.45}
+.af-res-bad .af-res-lbl{color:rgba(255,255,255,.72)}
+.af-res-note{font-size:16px;color:var(--text);line-height:1.6;margin:0 auto 28px;max-width:530px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 24px;box-shadow:0 6px 20px rgba(33,26,59,.05)}
+.af-res-cta .af-btn,.af-sent .af-btn{display:inline-block;text-decoration:none}
+.af-res-sub,.af-sent-sub{font-size:13.5px;color:var(--muted);margin-top:14px;line-height:1.5}
+.af-sent-ic{width:66px;height:66px;margin:0 auto 22px;border-radius:50%;background:rgba(63,165,53,.12);display:flex;align-items:center;justify-content:center}
+.af-sent-ic svg{width:32px;height:32px;stroke:var(--grass);stroke-width:2.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.af-sent h3{font-family:var(--fh);font-weight:800;font-size:clamp(23px,3vw,32px);color:var(--ink-deep);letter-spacing:-.02em;margin-bottom:14px;line-height:1.15}
+.af-sent p{color:var(--muted);font-size:17px;line-height:1.6;margin:0 auto 26px;max-width:480px}
+@media(max-width:820px){
+  .af-split{grid-template-columns:1fr}
+  .af-aside{padding:42px 34px}
+  .af-aside h2{font-size:26px}
+}
+@media(max-width:640px){
+  .af-aside{padding:34px 24px}
+  .af-main{padding:34px 24px 40px}
+  .af-result,.af-sent{padding:44px 24px}
+  .af-q{font-size:21px}
+  .af-res-grid{grid-template-columns:1fr}
+  .af-res-num{font-size:46px}
+  .af-nav{flex-wrap:wrap}
 }
 </style>
 </head>
@@ -373,7 +462,7 @@ footer{padding:50px 0 40px;border-top:1px solid var(--line);margin-top:30px}
       <a href="#problem">Проблема</a>
       <a href="#how">Как работаем</a>
       <a href="#tariffs">Тарифы</a>
-      <a href="https://t.me/geo_cc_bot?start=site" class="btn" target="_blank" rel="noopener">Проверить бренд</a>
+      <a href="#contact" class="btn">Проверить бренд</a>
     </div>
   </div>
 </nav>
@@ -386,10 +475,10 @@ footer{padding:50px 0 40px;border-top:1px solid var(--line);margin-top:30px}
       <h1><span class="h1-q">Как часто нейросети советуют ваш&nbsp;бренд?</span><br><span class="muted">Скорее всего — реже, чем конкурентов</span></h1>
       <p class="lead">Люди всё чаще спрашивают у ChatGPT, Perplexity, GigaChat и Алисы, что купить. Мы проверяем, советуют ли нейросети ваш бренд — и делаем так, чтобы советовали.</p>
       <div class="hero-cta">
-        <a href="https://t.me/geo_cc_bot?start=site" class="btn" target="_blank" rel="noopener">Проверить свой бренд</a>
+        <a href="#contact" class="btn">Проверить свой бренд</a>
         <a href="#how" class="btn btn-ghost">Как это работает</a>
       </div>
-      <a class="hero-offer" href="https://t.me/geo_cc_bot?start=site" target="_blank" rel="noopener">
+      <a class="hero-offer" href="#contact">
         <span class="ho-live"><span class="ho-pulse"></span></span>
         <span class="ho-txt"><b>Бесплатная экспресс-проверка.</b> Покажем, кого нейросети советуют в вашей нише и что говорят о вашем бренде</span>
         <span class="ho-arrow"><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
@@ -1059,16 +1148,114 @@ footer{padding:50px 0 40px;border-top:1px solid var(--line);margin-top:30px}
 
 <!-- ─── CTA ──────────────────────────────────── -->
 <section class="blk" id="contact">
-  <div class="wrap">
-    <div class="cta reveal">
-      <div class="cta-blob cb1"></div>
-      <div class="cta-blob cb2"></div>
-      <div class="cta-mascot-wrap">
-        <img src="mascot.png" alt="">
+  <div class="wrap wrap-narrow">
+    <div class="af reveal" id="audit-form">
+        <!-- вопросы: две панели -->
+      <div class="af-split" id="af-body">
+        <!-- левая тёмная панель -->
+        <aside class="af-aside">
+          <div class="af-aside-eye">Бесплатная проверка</div>
+          <h2>Узнайте, что нейросети говорят о вашем бренде</h2>
+          <p class="af-aside-sub">За пару минут спросим у ИИ про вашу нишу и покажем, советует он вас — или конкурентов.</p>
+          <ul class="af-benes">
+            <li><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg><span>4 нейросети: ChatGPT, Perplexity, GigaChat, Алиса</span></li>
+            <li><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg><span>Реальные ответы по вашей нише, а не общие слова</span></li>
+            <li><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg><span>Бесплатно, без звонков и обязательств</span></li>
+          </ul>
+        </aside>
+
+        <!-- правая панель с формой -->
+        <div class="af-main">
+          <div class="af-prog">
+            <div class="af-prog-bar"><span id="af-prog-fill"></span></div>
+            <div class="af-prog-txt">Шаг <b id="af-step-cur">1</b> из <span id="af-step-total">4</span></div>
+          </div>
+
+          <form class="af-form" id="af-formEl" novalidate>
+          <div class="af-step is-active" data-step="1">
+            <label class="af-q" for="af-niche">В какой вы нише?</label>
+            <p class="af-hint">Так мы поймём, о чём спрашивать нейросети.</p>
+            <input class="af-input" id="af-niche" name="niche" type="text" autocomplete="off" placeholder="напр. сеть фитнес-клубов в Москве" required>
+            <div class="af-nav">
+              <button type="button" class="af-btn af-next">Далее →</button>
+            </div>
+          </div>
+
+          <div class="af-step" data-step="2">
+            <label class="af-q" for="af-brand">Как называется ваш бренд?</label>
+            <p class="af-hint">Название, под которым вас знают клиенты.</p>
+            <input class="af-input" id="af-brand" name="brand" type="text" autocomplete="off" placeholder="напр. Стрела" required>
+            <div class="af-nav">
+              <button type="button" class="af-btn-ghost af-prev">← Назад</button>
+              <button type="button" class="af-btn af-next">Далее →</button>
+            </div>
+          </div>
+
+          <div class="af-step" data-step="3">
+            <label class="af-q" for="af-site">Сайт бренда <span class="af-opt">— можно пропустить</span></label>
+            <p class="af-hint">Поможет отличить вас от однофамильцев.</p>
+            <input class="af-input" id="af-site" name="site" type="text" autocomplete="off" placeholder="напр. strela-gym.ru">
+            <div class="af-nav">
+              <button type="button" class="af-btn-ghost af-prev">← Назад</button>
+              <button type="button" class="af-btn af-next">Далее →</button>
+            </div>
+          </div>
+
+          <div class="af-step" data-step="4">
+            <label class="af-q" for="af-contact">Куда прислать результат?</label>
+            <p class="af-hint">Telegram или email — пришлём разбор и ответим на вопросы.</p>
+            <input class="af-input" id="af-contact" name="contact" type="text" autocomplete="off" placeholder="@username или you@mail.ru" required>
+            <label class="af-consent" id="af-consent">
+              <input type="checkbox" id="af-agree" required>
+              <span>Соглашаюсь на <a href="/legal/consent.html" target="_blank" rel="noopener">обработку данных</a> для проведения проверки.</span>
+            </label>
+            <div class="af-nav">
+              <button type="button" class="af-btn-ghost af-prev">← Назад</button>
+              <button type="submit" class="af-btn af-submit">Проверить бренд</button>
+            </div>
+          </div>
+          </form>
+        </div>
       </div>
-      <h2>Узнайте, что ИИ говорит о&nbsp;вас</h2>
-      <p>Пришлём бесплатную экспресс-проверку по вашему бренду. Покажем, видят ли вас нейросети, кого советуют вместо и где врут.</p>
-      <a href="https://t.me/geo_cc_bot?start=site" class="btn-cta" target="_blank" rel="noopener">Запросить экспресс-проверку</a>
+
+      <!-- загрузка -->
+      <div class="af-loading" id="af-loading" hidden>
+        <div class="af-spinner"></div>
+        <p class="af-load-txt" id="af-load-txt">Спрашиваем нейросети про вашу нишу…</p>
+      </div>
+
+      <!-- результат-тизер (наполняется реальными цифрами с бэкенда) -->
+      <div class="af-result" id="af-result" hidden>
+        <span class="af-res-badge">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.4"/><path d="M12 2v3.2M12 18.8V22M2 12h3.2M18.8 12H22M4.9 4.9l2.3 2.3M16.8 16.8l2.3 2.3M19.1 4.9l-2.3 2.3M7.2 16.8l-2.3 2.3"/></svg>
+        </span>
+        <div class="eyebrow">Экспресс-результат</div>
+        <h3 class="af-res-h">Вот что нейросети говорят про «<span id="af-res-brand">ваш бренд</span>»</h3>
+        <div class="af-res-grid">
+          <div class="af-res-stat af-res-bad">
+            <div class="af-res-num"><span id="af-res-you">1</span><span class="af-res-den" id="af-res-den">/10</span></div>
+            <div class="af-res-lbl">раз ИИ назвал вас в ответах по нише</div>
+          </div>
+          <div class="af-res-stat">
+            <div class="af-res-num" id="af-res-comp">7</div>
+            <div class="af-res-lbl">раз назвали конкурента вместо вас</div>
+          </div>
+        </div>
+        <p class="af-res-note" id="af-res-note"></p>
+        <div class="af-res-cta">
+          <a href="https://t.me/geo_cc_bot?start=site" class="af-btn" target="_blank" rel="noopener">Обсудить полный аудит →</a>
+          <p class="af-res-sub">Заявку мы уже получили и свяжемся с вами. Полная версия — 4 нейросети, карта источников и план, что делать.</p>
+        </div>
+      </div>
+
+      <!-- заявка принята (интерим, пока нет эндпоинта) -->
+      <div class="af-sent" id="af-sent" hidden>
+        <div class="af-sent-ic"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg></div>
+        <h3>Заявка принята</h3>
+        <p>Запускаем проверку по бренду «<span id="af-sent-brand">вашему бренду</span>». Результат и разбор пришлём на указанный контакт. Хотите ускорить — напишите нам в Telegram.</p>
+        <a href="https://t.me/geo_cc_bot?start=site" class="af-btn" id="af-sent-tg" target="_blank" rel="noopener">Открыть Telegram →</a>
+        <p class="af-sent-sub">Обычно отвечаем в течение рабочего дня.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -1156,6 +1343,108 @@ document.querySelectorAll('.tl-panel').forEach(panel => {
     if (!isOpen) panel.classList.add('open');
   });
 });
+</script>
+
+<script>
+/* ─── Пошаговая форма экспресс-аудита ───
+   AUDIT_ENDPOINT: RU-бэкенд, который проводит проверку и возвращает
+   { you, total, competitor, note }. Пока пусто — заявка уходит в бота
+   (без выдуманных цифр на проде). Когда эндпоинт появится, тизер сам
+   начнёт показывать реальные числа. */
+(() => {
+  const AUDIT_ENDPOINT = '/api/quick-check';
+  const TG = 'https://t.me/geo_cc_bot?start=site';
+  const root = document.getElementById('audit-form');
+  if (!root) return;
+  const form   = document.getElementById('af-formEl');
+  const steps  = [...form.querySelectorAll('.af-step')];
+  const fill   = document.getElementById('af-prog-fill');
+  const curEl  = document.getElementById('af-step-cur');
+  const total  = steps.length;
+  document.getElementById('af-step-total').textContent = total;
+  let cur = 0, loadTimer;
+
+  const val = id => { const el = document.getElementById(id); return el ? el.value.trim() : ''; };
+
+  function show(i){
+    steps.forEach((s, idx) => s.classList.toggle('is-active', idx === i));
+    cur = i;
+    fill.style.width = ((i + 1) / total * 100) + '%';
+    curEl.textContent = i + 1;
+    const inp = steps[i].querySelector('.af-input');
+    if (inp) setTimeout(() => inp.focus(), 60);
+  }
+  function flag(inp){
+    inp.classList.add('af-err');
+    inp.focus();
+    inp.addEventListener('input', () => inp.classList.remove('af-err'), { once: true });
+  }
+  function validStep(i){
+    const inp = steps[i].querySelector('.af-input');
+    if (inp && inp.hasAttribute('required') && !inp.value.trim()) { flag(inp); return false; }
+    if (i === total - 1){
+      const agree = document.getElementById('af-agree');
+      const box = document.getElementById('af-consent');
+      if (agree && !agree.checked){
+        box.classList.add('af-err');
+        agree.addEventListener('change', () => box.classList.remove('af-err'), { once: true });
+        return false;
+      }
+    }
+    return true;
+  }
+
+  root.addEventListener('click', e => {
+    if (e.target.closest('.af-next')) { if (validStep(cur) && cur < total - 1) show(cur + 1); }
+    if (e.target.closest('.af-prev')) { if (cur > 0) show(cur - 1); }
+  });
+  form.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && cur < total - 1){ e.preventDefault(); if (validStep(cur)) show(cur + 1); }
+  });
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    if (!validStep(cur)) return;
+    const data = { niche: val('af-niche'), brand: val('af-brand'), site: val('af-site'), contact: val('af-contact') };
+    document.getElementById('af-body').setAttribute('hidden', '');
+    document.getElementById('af-loading').removeAttribute('hidden');
+    cycleLoad();
+    if (AUDIT_ENDPOINT){
+      try {
+        const r = await fetch(AUDIT_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+        renderResult(await r.json(), data);
+      } catch (err) { handoff(data); }
+    } else {
+      setTimeout(() => handoff(data), 1500);
+    }
+  });
+
+  function cycleLoad(){
+    const msgs = ['Спрашиваем нейросети про вашу нишу…', 'Смотрим, кого советуют покупателям…', 'Считаем, как часто называют вас…'];
+    const el = document.getElementById('af-load-txt');
+    let k = 0;
+    loadTimer = setInterval(() => {
+      el.style.opacity = 0;
+      setTimeout(() => { k = (k + 1) % msgs.length; el.textContent = msgs[k]; el.style.opacity = 1; }, 300);
+    }, 1800);
+  }
+  function stopLoad(){ clearInterval(loadTimer); document.getElementById('af-loading').setAttribute('hidden', ''); }
+
+  function renderResult(j, data){
+    stopLoad();
+    document.getElementById('af-res-brand').textContent = data.brand || 'вашего бренда';
+    document.getElementById('af-res-you').textContent  = j.you;
+    document.getElementById('af-res-den').textContent  = '/' + j.total;
+    document.getElementById('af-res-comp').textContent = j.competitor;
+    document.getElementById('af-res-note').textContent = j.note || '';
+    document.getElementById('af-result').removeAttribute('hidden');
+  }
+  function handoff(data){
+    stopLoad();
+    document.getElementById('af-sent-brand').textContent = data.brand || 'вашему бренду';
+    document.getElementById('af-sent').removeAttribute('hidden');
+  }
+})();
 </script>
 </body>
 </html>

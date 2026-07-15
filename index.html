@@ -879,7 +879,7 @@ footer{padding:50px 0 40px;border-top:1px solid var(--line);margin-top:30px}
       <div class="ta-right">
         <div class="ta-price">55 000 ₽</div>
         <div class="ta-per">разово · 5 рабочих дней</div>
-        <a href="https://t.me/geo_cc_bot?start=site" class="btn ta-btn" target="_blank" rel="noopener">Заказать аудит</a>
+        <button type="button" class="btn ta-btn" data-order="Разовый GEO-аудит · 55 000 ₽">Заказать аудит</button>
         <p class="ta-note">Стоимость засчитываем в первый месяц ведения, если продолжаете с нами</p>
       </div>
     </div>
@@ -899,7 +899,7 @@ footer{padding:50px 0 40px;border-top:1px solid var(--line);margin-top:30px}
           <li class="tli"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg>Отчёт с рекомендациями и точкой отсчёта</li>
         </ul>
         <p class="tar-note-italic">Подходит для первого знакомства с GEO и экспресс-диагностики</p>
-        <a href="https://t.me/geo_cc_bot?start=site" class="btn btn-ghost" style="text-align:center" target="_blank" rel="noopener">Обсудить</a>
+        <button type="button" class="btn btn-ghost" style="text-align:center" data-order="Ведение «Старт» · от 80 000 ₽/мес">Обсудить</button>
       </div>
 
       <div class="tar feat reveal">
@@ -916,7 +916,7 @@ footer{padding:50px 0 40px;border-top:1px solid var(--line);margin-top:30px}
           <li class="tli"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg>Ежемесячный замер — динамика было-стало</li>
         </ul>
         <p class="tar-note-italic">Оптимально для брендов с реальной задачей роста присутствия</p>
-        <a href="https://t.me/geo_cc_bot?start=site" class="btn" style="background:#fff;color:var(--ink);text-align:center" target="_blank" rel="noopener">Обсудить</a>
+        <button type="button" class="btn" style="background:#fff;color:var(--ink);text-align:center" data-order="Ведение «Рост» · от 120 000 ₽/мес">Обсудить</button>
       </div>
 
       <div class="tar reveal">
@@ -932,7 +932,7 @@ footer{padding:50px 0 40px;border-top:1px solid var(--line);margin-top:30px}
           <li class="tli"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 6"/></svg>Приоритетное ведение со стратегом</li>
         </ul>
         <p class="tar-note-italic">Для компаний, которые хотят доминировать в ответах ИИ по своей нише</p>
-        <a href="https://t.me/geo_cc_bot?start=site" class="btn btn-ghost" style="text-align:center" target="_blank" rel="noopener">Обсудить</a>
+        <button type="button" class="btn btn-ghost" style="text-align:center" data-order="Ведение «Под ключ» · от 200 000 ₽/мес">Обсудить</button>
       </div>
 
     </div>
@@ -1281,7 +1281,7 @@ footer{padding:50px 0 40px;border-top:1px solid var(--line);margin-top:30px}
         </div>
         <p class="af-res-note" id="af-res-note"></p>
         <div class="af-res-cta">
-          <a href="https://t.me/geo_cc_bot?start=site" class="af-btn" target="_blank" rel="noopener">Обсудить полный аудит →</a>
+          <button type="button" class="af-btn" data-order="Полный аудит (после экспресс-проверки)">Заказать полный аудит →</button>
           <p class="af-res-sub">Заявку мы уже получили и свяжемся с вами. Полная версия — 4 нейросети, карта источников и план, что делать.</p>
         </div>
       </div>
@@ -1444,6 +1444,7 @@ document.querySelectorAll('.tl-panel').forEach(panel => {
     e.preventDefault();
     if (!validStep(cur)) return;
     const data = { niche: val('af-niche'), brand: val('af-brand'), site: val('af-site'), contact: val('af-contact') };
+    window.__lead = data;
     document.getElementById('af-body').setAttribute('hidden', '');
     document.getElementById('af-loading').removeAttribute('hidden');
     cycleLoad();
@@ -1482,6 +1483,113 @@ document.querySelectorAll('.tl-panel').forEach(panel => {
     document.getElementById('af-sent-brand').textContent = data.brand || 'вашему бренду';
     document.getElementById('af-sent').removeAttribute('hidden');
   }
+})();
+</script>
+
+<!-- ─── Модалка заявки на заказ ─── -->
+<style>
+.om{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:20px}
+.om[hidden]{display:none}
+.om-bg{position:absolute;inset:0;background:rgba(22,18,39,.55);backdrop-filter:blur(4px)}
+.om-card{position:relative;background:#fff;border-radius:24px;max-width:460px;width:100%;padding:40px 38px;box-shadow:0 40px 100px rgba(33,26,59,.35);animation:omIn .3s cubic-bezier(.16,1,.3,1)}
+@keyframes omIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.om-x{position:absolute;top:12px;right:14px;background:none;border:none;font-size:28px;line-height:1;color:var(--muted);cursor:pointer;padding:4px 8px}
+.om-x:hover{color:var(--ink-deep)}
+.om-eyebrow{font-family:var(--fh);font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);margin-bottom:12px}
+.om-h{font-family:var(--fh);font-weight:800;font-size:23px;letter-spacing:-.02em;color:var(--ink-deep);margin:0 0 8px;line-height:1.15}
+.om-sub{color:var(--muted);font-size:15px;line-height:1.5;margin:0 0 20px}
+.om-input{width:100%;font-family:var(--fb);font-size:16px;color:var(--text);background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:13px 16px;margin-bottom:11px;outline:none;transition:border-color .2s,box-shadow .2s}
+.om-input:focus{border-color:var(--ink);box-shadow:0 0 0 4px rgba(75,39,235,.12)}
+.om-input.om-err{border-color:#d4442f;box-shadow:0 0 0 4px rgba(212,68,47,.1)}
+.om-consent{display:flex;gap:9px;align-items:flex-start;font-size:13px;color:var(--muted);line-height:1.45;margin:6px 0 18px;cursor:pointer}
+.om-consent.om-err{color:#d4442f}
+.om-consent input{margin-top:2px;width:15px;height:15px;accent-color:var(--ink);flex:none}
+.om-consent a{color:var(--ink)}
+.om-submit{width:100%;font-family:var(--fh);font-weight:700;font-size:16px;color:#fff;background:var(--ink);border:none;border-radius:12px;padding:14px;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 10px 26px rgba(75,39,235,.22)}
+.om-submit:hover{transform:translateY(-2px);box-shadow:0 16px 36px rgba(75,39,235,.3)}
+.om-submit:disabled{opacity:.7;cursor:default;transform:none}
+.om-alt{display:block;text-align:center;margin-top:16px;font-size:14px;color:var(--ink);text-decoration:none}
+.om-alt:hover{text-decoration:underline}
+.om-done{text-align:center}
+.om-check{width:60px;height:60px;margin:0 auto 18px;border-radius:50%;background:rgba(63,165,53,.12);display:flex;align-items:center;justify-content:center}
+.om-check svg{width:30px;height:30px;stroke:var(--grass);stroke-width:2.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:520px){.om-card{padding:32px 24px}}
+</style>
+<div class="om" id="order-modal" hidden>
+  <div class="om-bg" data-om-close></div>
+  <div class="om-card" role="dialog" aria-modal="true" aria-label="Заявка">
+    <button class="om-x" type="button" data-om-close aria-label="Закрыть">&times;</button>
+    <div class="om-body" id="om-body">
+      <div class="om-eyebrow" id="om-subj">Заявка</div>
+      <h3 class="om-h">Оставьте контакт — пришлём договор и счёт</h3>
+      <p class="om-sub">Свяжемся в течение рабочего дня, ответим на вопросы и запустим работу.</p>
+      <form id="om-form" novalidate>
+        <input class="om-input" id="om-name" type="text" placeholder="Ваше имя" autocomplete="name">
+        <input class="om-input" id="om-company" type="text" placeholder="Компания (для счёта) — можно указать позже">
+        <input class="om-input" id="om-contact" type="text" placeholder="Telegram, email или телефон" required>
+        <label class="om-consent" id="om-consent"><input type="checkbox" id="om-agree" required><span>Соглашаюсь на <a href="/legal/consent.html" target="_blank" rel="noopener">обработку данных</a></span></label>
+        <button type="submit" class="om-submit">Отправить заявку</button>
+      </form>
+      <a class="om-alt" href="https://t.me/geo_cc_bot?start=site" target="_blank" rel="noopener">Удобнее в Telegram? Напишите нам →</a>
+    </div>
+    <div class="om-done" id="om-done" hidden>
+      <div class="om-check"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg></div>
+      <h3 class="om-h">Заявка принята</h3>
+      <p class="om-sub">Пришлём договор и счёт на указанный контакт и ответим на вопросы. Обычно отвечаем в течение рабочего дня.</p>
+      <button type="button" class="om-submit" data-om-close>Хорошо</button>
+    </div>
+  </div>
+</div>
+<script>
+(() => {
+  const ORDER_ENDPOINT = '/api/order';
+  const modal = document.getElementById('order-modal');
+  if (!modal) return;
+  const body = document.getElementById('om-body');
+  const done = document.getElementById('om-done');
+  const subjEl = document.getElementById('om-subj');
+  const contactEl = document.getElementById('om-contact');
+  const form = document.getElementById('om-form');
+  let subject = 'Заявка';
+
+  function open(subj){
+    subject = subj || 'Заявка';
+    subjEl.textContent = subj || 'Заявка';
+    body.removeAttribute('hidden'); done.setAttribute('hidden','');
+    if (window.__lead && window.__lead.contact && !contactEl.value) contactEl.value = window.__lead.contact;
+    modal.removeAttribute('hidden');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => document.getElementById('om-name').focus(), 80);
+  }
+  function close(){ modal.setAttribute('hidden',''); document.body.style.overflow=''; }
+
+  document.addEventListener('click', e => {
+    const t = e.target.closest('[data-order]');
+    if (t){ e.preventDefault(); open(t.getAttribute('data-order')); return; }
+    if (e.target.closest('[data-om-close]')) close();
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !modal.hasAttribute('hidden')) close(); });
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const contact = contactEl.value.trim();
+    const agree = document.getElementById('om-agree');
+    let ok = true;
+    if (!contact){ contactEl.classList.add('om-err'); ok = false; }
+    if (!agree.checked){ document.getElementById('om-consent').classList.add('om-err'); ok = false; }
+    if (!ok) return;
+    const payload = {
+      name: document.getElementById('om-name').value.trim(),
+      company: document.getElementById('om-company').value.trim(),
+      contact, subject,
+      brand: (window.__lead && window.__lead.brand) || ''
+    };
+    const btn = form.querySelector('.om-submit');
+    btn.disabled = true; btn.textContent = 'Отправляем…';
+    try { await fetch(ORDER_ENDPOINT, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) }); } catch (err) {}
+    btn.disabled = false; btn.textContent = 'Отправить заявку';
+    body.setAttribute('hidden',''); done.removeAttribute('hidden');
+  });
 })();
 </script>
 </body>

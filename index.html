@@ -1616,6 +1616,9 @@ document.querySelectorAll('.tl-panel').forEach(panel => {
 .cw-m.bot{align-self:flex-start;background:#fff;color:var(--text);border:1px solid var(--line);border-bottom-left-radius:5px}
 .cw-m.usr{align-self:flex-end;background:var(--ink);color:#fff;border-bottom-right-radius:5px}
 .cw-typing{align-self:flex-start;color:var(--muted);font-size:13px;padding:2px 6px}
+.cw-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:2px}
+.cw-chip{background:#fff;border:1.5px solid var(--line);color:var(--ink-deep);font-family:var(--fb);font-size:13.5px;font-weight:600;padding:8px 13px;border-radius:99px;cursor:pointer;transition:border-color .2s,background .2s}
+.cw-chip:hover{border-color:var(--ink);background:#f3f0ff}
 .cw-foot{padding:12px;border-top:1px solid var(--line);background:#fff}
 .cw-inrow{display:flex;gap:8px;align-items:flex-end}
 .cw-in{flex:1;border:1.5px solid var(--line);border-radius:14px;padding:11px 14px;font-family:var(--fb);font-size:14.5px;resize:none;max-height:100px;outline:none}
@@ -1659,9 +1662,24 @@ document.querySelectorAll('.tl-panel').forEach(panel => {
     d.textContent = text;
     msgs.appendChild(d); msgs.scrollTop = msgs.scrollHeight;
   }
+  function renderChips() {
+    const wrap = document.createElement('div'); wrap.className = 'cw-chips'; wrap.id = 'cw-chips';
+    const chips = [
+      { q: 'Сколько стоит аудит?', label: 'Сколько стоит?' },
+      { q: 'Как это работает?', label: 'Как работает?' },
+      { order: 'Запрос из чата (связаться с менеджером)', label: 'Оставить заявку' },
+    ];
+    chips.forEach(c => {
+      const b = document.createElement('button'); b.className = 'cw-chip'; b.type = 'button'; b.textContent = c.label;
+      if (c.order) { b.setAttribute('data-order', c.order); }
+      else { b.addEventListener('click', () => { input.value = c.q; submit(); }); }
+      wrap.appendChild(b);
+    });
+    msgs.appendChild(wrap); msgs.scrollTop = msgs.scrollHeight;
+  }
   function open() {
     panel.classList.add('open'); btn.classList.add('hide');
-    if (!greeted) { add('bot', GREETING); greeted = true; }
+    if (!greeted) { add('bot', GREETING); renderChips(); greeted = true; }
     setTimeout(() => input.focus(), 100);
   }
   function close() { panel.classList.remove('open'); btn.classList.remove('hide'); }
@@ -1671,6 +1689,7 @@ document.querySelectorAll('.tl-panel').forEach(panel => {
   async function submit() {
     const text = input.value.trim();
     if (!text || busy) return;
+    const chipsEl = document.getElementById('cw-chips'); if (chipsEl) chipsEl.remove();
     busy = true; input.value = ''; input.style.height = 'auto';
     add('user', text); history.push({ role: 'user', content: text });
     const typing = document.createElement('div'); typing.className = 'cw-typing'; typing.textContent = 'печатает…';

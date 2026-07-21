@@ -1595,5 +1595,100 @@ document.querySelectorAll('.tl-panel').forEach(panel => {
   });
 })();
 </script>
+<!-- ─── ИИ-ассистент (чат) ─── -->
+<style>
+.cw-btn{position:fixed;bottom:22px;right:22px;z-index:150;display:flex;align-items:center;gap:10px;background:var(--ink);color:#fff;border:none;border-radius:50px;padding:14px 20px 14px 16px;cursor:pointer;box-shadow:0 14px 34px rgba(75,39,235,.34);font-family:var(--fh);font-weight:700;font-size:15px;transition:transform .2s,box-shadow .2s}
+.cw-btn:hover{transform:translateY(-2px);box-shadow:0 20px 44px rgba(75,39,235,.42)}
+.cw-btn svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:2}
+.cw-btn.hide{display:none}
+.cw-panel{position:fixed;bottom:22px;right:22px;z-index:151;width:380px;max-width:calc(100vw - 32px);height:560px;max-height:calc(100vh - 44px);background:#fff;border-radius:22px;box-shadow:0 30px 80px rgba(33,26,59,.32);display:none;flex-direction:column;overflow:hidden;animation:cwIn .28s cubic-bezier(.16,1,.3,1)}
+.cw-panel.open{display:flex}
+@keyframes cwIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.cw-head{background:linear-gradient(150deg,#2E2168,#191139);color:#fff;padding:16px 18px;display:flex;align-items:center;gap:12px}
+.cw-head img{width:36px;height:36px;object-fit:contain}
+.cw-head-t{flex:1;min-width:0}
+.cw-head-t b{font-family:var(--fh);font-weight:700;font-size:15px;display:block}
+.cw-head-t span{font-size:12px;color:rgba(255,255,255,.62)}
+.cw-x{background:none;border:none;color:rgba(255,255,255,.7);font-size:24px;cursor:pointer;line-height:1;padding:2px 6px}
+.cw-x:hover{color:#fff}
+.cw-msgs{flex:1;overflow-y:auto;padding:18px;display:flex;flex-direction:column;gap:12px;background:var(--cream)}
+.cw-m{max-width:84%;padding:11px 15px;border-radius:16px;font-size:14.5px;line-height:1.5;white-space:pre-wrap}
+.cw-m.bot{align-self:flex-start;background:#fff;color:var(--text);border:1px solid var(--line);border-bottom-left-radius:5px}
+.cw-m.usr{align-self:flex-end;background:var(--ink);color:#fff;border-bottom-right-radius:5px}
+.cw-typing{align-self:flex-start;color:var(--muted);font-size:13px;padding:2px 6px}
+.cw-foot{padding:12px;border-top:1px solid var(--line);background:#fff}
+.cw-inrow{display:flex;gap:8px;align-items:flex-end}
+.cw-in{flex:1;border:1.5px solid var(--line);border-radius:14px;padding:11px 14px;font-family:var(--fb);font-size:14.5px;resize:none;max-height:100px;outline:none}
+.cw-in:focus{border-color:var(--ink)}
+.cw-send{background:var(--ink);border:none;border-radius:12px;width:44px;height:44px;flex:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.cw-send svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:2}
+.cw-send:disabled{opacity:.5;cursor:default}
+.cw-disc{font-size:11px;color:var(--muted);text-align:center;margin-top:8px}
+@media(max-width:480px){.cw-panel{height:calc(100vh - 24px);bottom:12px;right:12px;left:12px;width:auto;max-width:none}.cw-btn{bottom:16px;right:16px}}
+</style>
+<button class="cw-btn" id="cw-btn" aria-label="Открыть чат с ассистентом">
+  <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+  <span>Спросить ИИ</span>
+</button>
+<div class="cw-panel" id="cw-panel" role="dialog" aria-label="Чат с ассистентом">
+  <div class="cw-head">
+    <img src="mascot.png" alt="">
+    <div class="cw-head-t"><b>Ассистент GEO</b><span>Ответит на вопросы за секунды</span></div>
+    <button class="cw-x" id="cw-x" aria-label="Закрыть">&times;</button>
+  </div>
+  <div class="cw-msgs" id="cw-msgs"></div>
+  <div class="cw-foot">
+    <div class="cw-inrow">
+      <textarea class="cw-in" id="cw-in" rows="1" placeholder="Спросите про GEO, аудит, цены…"></textarea>
+      <button class="cw-send" id="cw-send" aria-label="Отправить"><svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></button>
+    </div>
+    <div class="cw-disc">Отвечает ИИ · это не оферта</div>
+  </div>
+</div>
+<script>
+(() => {
+  const btn = document.getElementById('cw-btn'), panel = document.getElementById('cw-panel');
+  const msgs = document.getElementById('cw-msgs'), input = document.getElementById('cw-in'), send = document.getElementById('cw-send');
+  if (!btn) return;
+  const history = []; let greeted = false, busy = false;
+  const GREETING = "Здравствуйте! Я ассистент Creative Command. Расскажу, как нейросети влияют на продажи, что входит в аудит и сколько стоит. Что интересует?";
+
+  function add(role, text) {
+    const d = document.createElement('div');
+    d.className = 'cw-m ' + (role === 'user' ? 'usr' : 'bot');
+    d.textContent = text;
+    msgs.appendChild(d); msgs.scrollTop = msgs.scrollHeight;
+  }
+  function open() {
+    panel.classList.add('open'); btn.classList.add('hide');
+    if (!greeted) { add('bot', GREETING); greeted = true; }
+    setTimeout(() => input.focus(), 100);
+  }
+  function close() { panel.classList.remove('open'); btn.classList.remove('hide'); }
+  btn.addEventListener('click', open);
+  document.getElementById('cw-x').addEventListener('click', close);
+
+  async function submit() {
+    const text = input.value.trim();
+    if (!text || busy) return;
+    busy = true; input.value = ''; input.style.height = 'auto';
+    add('user', text); history.push({ role: 'user', content: text });
+    const typing = document.createElement('div'); typing.className = 'cw-typing'; typing.textContent = 'печатает…';
+    msgs.appendChild(typing); msgs.scrollTop = msgs.scrollHeight;
+    send.disabled = true;
+    let reply = "Извините, не получилось ответить. Оставьте заявку — менеджер поможет.";
+    try {
+      const r = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ messages: history.slice(-8) }) });
+      const j = await r.json(); if (j.reply) reply = j.reply;
+    } catch (e) {}
+    typing.remove();
+    add('bot', reply); history.push({ role: 'assistant', content: reply });
+    send.disabled = false; busy = false; input.focus();
+  }
+  send.addEventListener('click', submit);
+  input.addEventListener('keydown', e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); submit(); } });
+  input.addEventListener('input', () => { input.style.height = 'auto'; input.style.height = Math.min(input.scrollHeight, 100) + 'px'; });
+})();
+</script>
 </body>
 </html>

@@ -429,19 +429,39 @@ footer{padding:50px 0 40px;border-top:1px solid var(--line);margin-top:30px}
 .af-result::before{content:"";position:absolute;top:24px;left:50%;transform:translateX(-50%);width:360px;height:220px;max-width:90%;background:radial-gradient(ellipse,rgba(107,79,255,.16),transparent 70%);pointer-events:none;z-index:0}
 .af-result>*{position:relative;z-index:1}
 .af-result .eyebrow{display:flex;justify-content:center}
-.af-res-badge{width:62px;height:62px;margin:0 auto 20px;border-radius:17px;background:linear-gradient(150deg,var(--ink),var(--elec));display:flex;align-items:center;justify-content:center;box-shadow:0 14px 30px rgba(75,39,235,.32)}
+.af-res-badge{width:62px;height:62px;margin:0 auto 18px;border-radius:17px;background:linear-gradient(150deg,var(--ink),var(--elec));display:flex;align-items:center;justify-content:center;box-shadow:0 14px 30px rgba(75,39,235,.3);transition:background .3s}
+.r-bad .af-res-badge{background:linear-gradient(150deg,#E4573B,#B3301B);box-shadow:0 14px 30px rgba(212,68,47,.32)}
+.r-mid .af-res-badge{background:linear-gradient(150deg,#E0952B,#B36F14);box-shadow:0 14px 30px rgba(198,124,30,.3)}
+.r-good .af-res-badge{background:linear-gradient(150deg,#46B23C,#2E7E27);box-shadow:0 14px 30px rgba(63,165,53,.3)}
 .af-res-badge svg{width:30px;height:30px;stroke:#fff;stroke-width:1.7;fill:none;stroke-linecap:round;stroke-linejoin:round}
-.af-res-h{font-family:var(--fh);font-weight:800;font-size:clamp(23px,3vw,32px);color:var(--ink-deep);letter-spacing:-.02em;margin:12px 0 28px;line-height:1.15}
-.af-res-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:26px}
+.af-res-h{font-family:var(--fh);font-weight:800;font-size:clamp(23px,3vw,32px);color:var(--ink-deep);letter-spacing:-.02em;margin:12px 0 14px;line-height:1.15}
+.af-res-status{display:inline-flex;align-items:center;gap:8px;font-family:var(--fh);font-weight:700;font-size:14.5px;padding:8px 16px;border-radius:99px;margin-bottom:24px}
+.af-res-status::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor}
+.r-bad .af-res-status{background:rgba(212,68,47,.1);color:#C13A22}
+.r-mid .af-res-status{background:rgba(198,124,30,.13);color:#A9650F}
+.r-good .af-res-status{background:rgba(63,165,53,.13);color:#2E7E27}
+.af-res-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:22px}
 .af-res-stat{background:#fff;border:1px solid var(--line);border-radius:18px;padding:28px 22px;box-shadow:0 6px 20px rgba(33,26,59,.06)}
-.af-res-bad{background:var(--dark);border-color:transparent}
 .af-res-num{font-family:var(--fh);font-weight:900;font-size:52px;line-height:1;color:var(--ink);letter-spacing:-.03em}
-.af-res-bad .af-res-num{color:#fff}
 .af-res-den{font-size:26px;color:var(--muted);font-weight:700}
-.af-res-bad .af-res-den{color:rgba(255,255,255,.5)}
 .af-res-lbl{font-size:14px;color:var(--muted);margin-top:12px;line-height:1.45}
-.af-res-bad .af-res-lbl{color:rgba(255,255,255,.72)}
-.af-res-note{font-size:16px;color:var(--text);line-height:1.6;margin:0 auto 28px;max-width:530px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 24px;box-shadow:0 6px 20px rgba(33,26,59,.05)}
+/* левая карточка «вы» — вид зависит от результата */
+.r-bad .af-res-you{background:var(--dark);border-color:transparent}
+.r-bad .af-res-you .af-res-num{color:#fff}
+.r-bad .af-res-you .af-res-den{color:rgba(255,255,255,.5)}
+.r-bad .af-res-you .af-res-lbl{color:rgba(255,255,255,.72)}
+.r-mid .af-res-you .af-res-num{color:#C67C1E}
+.r-good .af-res-you{border-color:rgba(63,165,53,.4)}
+.r-good .af-res-you .af-res-num{color:var(--grass)}
+.af-res-note{font-size:16px;color:var(--text);line-height:1.6;margin:0 auto 22px;max-width:540px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 24px;box-shadow:0 6px 20px rgba(33,26,59,.05)}
+/* что покажет полный аудит */
+.af-res-deliver{display:grid;grid-template-columns:1fr 138px;gap:24px;align-items:center;background:linear-gradient(150deg,#2E2168,#191139);border-radius:20px;padding:24px 26px;margin:0 auto 24px;max-width:580px;text-align:left}
+.af-rd-title{font-family:var(--fh);font-weight:700;font-size:12px;letter-spacing:.07em;text-transform:uppercase;color:#B7A8FF;margin-bottom:15px}
+.af-rd-grid{display:grid;gap:11px}
+.af-rd-item{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;color:rgba(255,255,255,.92);line-height:1.35}
+.af-rd-item svg{width:19px;height:19px;flex:none;margin-top:1px;stroke:#7BE06F;stroke-width:2.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.af-rd-img{width:138px;border-radius:10px;box-shadow:0 14px 32px rgba(0,0,0,.36);transform:rotate(3deg)}
+@media(max-width:560px){.af-res-deliver{grid-template-columns:1fr}.af-rd-img{display:none}}
 .af-res-cta .af-btn,.af-sent .af-btn{display:inline-block;text-decoration:none}
 .af-res-sub,.af-sent-sub{font-size:13.5px;color:var(--muted);margin-top:14px;line-height:1.5}
 .af-sent-ic{width:66px;height:66px;margin:0 auto 22px;border-radius:50%;background:rgba(63,165,53,.12);display:flex;align-items:center;justify-content:center}
@@ -1278,20 +1298,33 @@ footer{padding:50px 0 40px;border-top:1px solid var(--line);margin-top:30px}
         </span>
         <div class="eyebrow">Экспресс-результат</div>
         <h3 class="af-res-h">Вот что нейросети говорят про «<span id="af-res-brand">ваш бренд</span>»</h3>
+        <div class="af-res-status" id="af-res-status">—</div>
         <div class="af-res-grid">
-          <div class="af-res-stat af-res-bad">
-            <div class="af-res-num"><span id="af-res-you">1</span><span class="af-res-den" id="af-res-den">/10</span></div>
+          <div class="af-res-stat af-res-you">
+            <div class="af-res-num"><span id="af-res-you">0</span><span class="af-res-den" id="af-res-den">/6</span></div>
             <div class="af-res-lbl">раз ИИ назвал вас в ответах по нише</div>
           </div>
           <div class="af-res-stat">
-            <div class="af-res-num" id="af-res-comp">7</div>
+            <div class="af-res-num" id="af-res-comp">6</div>
             <div class="af-res-lbl">раз назвали конкурента вместо вас</div>
           </div>
         </div>
         <p class="af-res-note" id="af-res-note"></p>
+        <div class="af-res-deliver">
+          <div class="af-rd-left">
+            <div class="af-rd-title">Что покажет полный аудит</div>
+            <div class="af-rd-grid">
+              <div class="af-rd-item"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg>В каких запросах вас теряют</div>
+              <div class="af-rd-item"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg>Кто забирает ваших клиентов</div>
+              <div class="af-rd-item"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg>Откуда ИИ берёт ответы — карта источников</div>
+              <div class="af-rd-item"><svg viewBox="0 0 24 24"><path d="M4 12.5l5 5L20 6"/></svg>План на 3 месяца: что делать</div>
+            </div>
+          </div>
+          <img src="report-slide-sov.png" alt="Пример отчёта" class="af-rd-img" loading="lazy">
+        </div>
         <div class="af-res-cta">
           <button type="button" class="af-btn" data-order="Полный аудит (после экспресс-проверки)">Заказать полный аудит →</button>
-          <p class="af-res-sub">Заявку мы уже получили и свяжемся с вами. Полная версия — 4 нейросети, карта источников и план, что делать.</p>
+          <p class="af-res-sub">Заявку мы уже получили — свяжемся с вами. Полный аудит с графиками и планом готовим за 5 рабочих дней.</p>
         </div>
       </div>
 
@@ -1474,12 +1507,21 @@ document.querySelectorAll('.tl-panel').forEach(panel => {
 
   function renderResult(j, data){
     stopLoad();
+    const el = document.getElementById('af-result');
     document.getElementById('af-res-brand').textContent = data.brand || 'вашего бренда';
     document.getElementById('af-res-you').textContent  = j.you;
     document.getElementById('af-res-den').textContent  = '/' + j.total;
     document.getElementById('af-res-comp').textContent = j.competitor;
     document.getElementById('af-res-note').textContent = j.note || '';
-    document.getElementById('af-result').removeAttribute('hidden');
+    const ratio = j.total ? j.you / j.total : 0;
+    let state, status;
+    if (j.you === 0){ state = 'r-bad'; status = 'Вас почти не видно в нейросетях'; }
+    else if (ratio <= 0.5){ state = 'r-mid'; status = 'Вас советуют реже конкурентов'; }
+    else { state = 'r-good'; status = 'Вы уже попадаете в ответы ИИ'; }
+    el.classList.remove('r-bad', 'r-mid', 'r-good');
+    el.classList.add(state);
+    document.getElementById('af-res-status').textContent = status;
+    el.removeAttribute('hidden');
   }
   function handoff(data){
     stopLoad();
